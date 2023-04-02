@@ -63,3 +63,81 @@ The built-in `console` global module, is an object that provides familiar method
 `console` can be accessed from anywhere, the `require` function is not necessary.
 
 <br>
+
+## The Process Module
+
+[`process` documentation](https://nodejs.org/api/process.html)
+
+In computer science, a **process** is the instance of a computer program that is being executed.
+
+- The global node object `process` contains useful methods and information about the current process.
+- The `process.env` property is an object which stores and controls information about the environment in which the process is currently running.
+- `process.env.PWD` property holds a string with the directory in which the current process is located.
+- The `process.memoryUsage()` returns information on the CPU demands of the current process.
+- `process.memoryUsage().heapUsed` returns a number representing how many bytes of memory the current process is using.
+- `process.argv` property holds an array of command line values provided when the current process was initiated.
+  - The first element in the array is the absolute path to Node, which run the process.
+  - The second element is the path to the file that's running.
+  - The following elements will be any command line arguments provided when the process was initiated.
+
+Command line arguments are separated from one another with spaces:
+
+```
+node main.js testing features
+```
+
+```js
+process.argv[2]; // testing
+```
+
+<br>
+
+## The OS Module
+
+```js
+const os = require("os");
+
+const local = {
+  "Operating System": os.type(), // computer's operating system
+  "CPU architecture": os.arch(), // operating system CPU architecture
+  "Network Interfaces": os.networkInterfaces(), // network interfaces (IP / MAC)
+  "Home Directory": os.homedir(), // current user's home directory
+  Hostname: os.hostname(), // the hostname of the operating system
+  "Last Reboot": os.uptime(), //the system uptime (in seconds)
+};
+```
+
+<br>
+
+## The Util Module
+
+The Node `util` core module contains methods specifically designed for utility purposes.
+
+```js
+const util = require("util");
+```
+
+The `types` utility object provides methods for runtime type checking in Node.
+
+```js
+const today = new Date();
+console.log(util.types.isDate(today)); // true
+```
+
+Here we do type checking using `util.types.isDate()`. It will check for `Date` objects and returns a boolean value.
+
+<br>
+
+### promisify
+
+`util.promisify()` method will turn callback functions into promises.
+
+```js
+const getUser = function () {};
+const getUserPromise = util.promisify(getUser);
+getUserPromise(id).then().catch();
+```
+
+The `getUser` method is turned into a promise using the `.promisify()` method.
+
+<br>
