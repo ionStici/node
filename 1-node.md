@@ -141,3 +141,137 @@ getUserPromise(id).then().catch();
 The `getUser` method is turned into a promise using the `.promisify()` method.
 
 <br>
+
+## The Events Module
+
+Node - event-driven architecture.
+
+Node provides an `EventEmitter` class which we can access by requiring the `events` core module:
+
+```js
+let events = require("events");
+
+// Create an instance of the EventEmitter class
+let emitter = new events.EventEmitter();
+```
+
+Each event emitter instance has an `.on()` method which assigns a listener callback function to a named event. The `.on()` method takes as its first argument the name of the event as a string and, as its second argument, the listener callback function.
+
+Each event emitter instance also has an `.emit()` method which announces a named event has occurred. The `.emit()` method takes as its first argument the name of the event as a string and, as its second argument, the data that should be passed into the listener callback function.
+
+```js
+let listener = (data) => {
+  console.log(data);
+};
+
+emitter.on("new user", listener);
+
+emitter.emit("new user", listener);
+```
+
+<br>
+
+## User Input/Output
+
+In the Node environment, the console is the terminal, and the `console.log()` method is a “thin wrapper” on the `.stdout.write()` method of the `process` object. `stdout` stands for standard output.
+
+In Node, we can also receive input from a user through the terminal using the `stdin.on()` method on the `process` object.
+
+```js
+process.atdin.on("data", (userInput) => {
+  let input = userInput.toString();
+  console.log(input);
+});
+```
+
+Here, we were able to use `.on()` because under the hood `process.stdin` is an instance of `EventEmitter`.
+
+When a user enters text into the terminal and hits enter, a `'data'` event will be fired and our anonymous listener callback will be invoked.
+
+The `userInput` we receive is an instance of the Node `Buffer` class, so we convert it to a string before printing.
+
+<br>
+
+## The Error Module
+
+The Node environment’s `error` module (global scope) has all the standard JavaScript errors, as well as the `Error` class for creating new error instances.
+
+- We can generate and throw errors.
+- We can use error handling techniques such as `try...catch` statements.
+
+Many asynchronous Node APIs use _error-first callback functions_. Callback functions which have an error as the first expected argument and the data as the second argument. If the asynchronous task results in an error, it will be passed in as the first argument to the callback function. If no error was thrown, the first argument will be `undefined`.
+
+```js
+const errorFirstCallback = (err, data) => {
+  if (err) {
+    console.log(`There WAS an error: ${err}`);
+  } else {
+    console.log(data);
+  }
+};
+```
+
+In node, we use error-first callbacks in many of its asynchronous APIs, because traditional `try...catch` statements won't work for errors thrown during asynchronous operations.
+
+<br>
+
+## The Buffer Module
+
+The `Buffer` module (global scope) is used to handle binary data.
+
+A `Buffer` object represents a fixed amount of memory that can’t be resized. `Buffer` objects are similar to an array of integers where each element in the array represents a byte of data. The buffer object will have a range of integers from 0 to 255 inclusive.
+
+The Buffer module provides a variety of methods to handle the binary data such as `.alloc() .toString() .from() .concat()`
+
+<br>
+
+**`alloc()`** method creates a new `Buffer` object, it accepts three arguments:
+
+- Size: Required. The size of the buffer
+- Fill: Optional. A value to fill the buffer with. Default is 0.
+- Encoding: Optional. Default is UTF-8.
+
+```js
+const buffer = Buffer.alloc(5);
+console.log(buffer); // Ouput: [0, 0, 0, 0, 0]
+```
+
+<br>
+
+**`toString()`** method translates the `Buffer` objects into a human-readable string. It accepts 2 optional arguments:
+
+- Encoding: Default is UTF-8.
+- Start: The byte offset to begin translating in the Buffer object. Default is 0.
+- End: The byte offset to end translating in the Buffer object. Default is the length of the buffer. The start and end of the buffer are similar to the start and end of an array, where the first element is 0 and increments upwards.
+
+```js
+const buffer = Buffer.alloc(5, "a");
+console.log(buffer.toString()); // Output: aaaaa
+```
+
+<br>
+
+**`from()`** method - to create a new `Buffer` object from the specified string, array, of buffer. It accepts 2 arguments:
+
+- Object: Required. An object to fill the buffer with.
+- Encoding: Optional. Default is UTF-8.
+
+```js
+const buffer = Buffer.from("hello");
+console.log(buffer); // Output: [104, 101, 108, 108, 111]
+```
+
+<br>
+
+**`concat`** method joins all buffer objects passed in an array into one `Buffer` object. It accepts 2 arguments:
+
+- Array: Required. An array containing `Buffer` objects.
+- Length: Optional. Specifies the length of the concatenated buffer.
+
+```js
+const bufferConcat = Buffer.concat([buffer1, buffer2]);
+```
+
+`concat()` comes in handy because a `Buffer` object can’t be resized.
+
+<br>
