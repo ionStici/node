@@ -297,18 +297,3 @@ We invoked the `.readFile()` method with three arguments:
 3. The third argument is the callback function to be invoked when the asynchronous task of reading from the file system is complete. Node will pass the contents of file.txt into the provided callback as its second argument.
 
 <br>
-
-## Readable Streams
-
-```js
-const readline = require("readline");
-const fs = require("fs");
-
-const myInterface = readline.createInterface({
-  input: fs.createReadStream("text.txt"),
-});
-
-myInterface.on("line", (fileLine) => {
-  console.log(`The line read: ${fileLine}`);
-});
-```
