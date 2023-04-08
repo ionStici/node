@@ -49,7 +49,7 @@ const interface = readline.createInterface({
 interface.on("line", (fileLine) => console.log(fileLine));
 ```
 
-1. `readline.createInterface()` with an object containin the `input`, will return an interface.
+1. `readline.createInterface()` with an object containing `input`, will create an interface.
 2. We set `input` to `fs.createReadStream("text.txt")` which will create a stream from the `text.txt` file.
 3. On the created interface, we attach a `line` event along with a callback. A `line` event will be emitted after each line from the file is read.
 4. For each line that `text.txt` file has, a `line` event will be emitted, and the `fileLine` parameter will contain the content from each line.
@@ -57,5 +57,37 @@ interface.on("line", (fileLine) => console.log(fileLine));
 <br>
 
 ## Writeable Streams
+
+We can also write to streams.
+
+We can create a writeable stream to a file using the `fs.createWriteStream()` method.
+
+```js
+const fs = require("fs");
+
+const fileStream = fs.createWriteStream("output.txt");
+
+fileStream.write("line one");
+fileStream.write("line two");
+fielStream.end();
+```
+
+Unlike a readable stream, which ends when it has no more data to read, a writable stream could remain open indefinitely. We can indicate the end of a writable stream with the `.end()` method.
+
+<br>
+
+## The Timers Module
+
+`timer` global module
+
+You may already be familiar with some timer functions such as, setTimeout() and setInterval(). Timer functions in Node.js behave similarly to how they work in front-end JavaScript programs, but the difference is that they are added to the Node.js event loop. This means that the timer functions are scheduled and put into a queue. This queue is processed at every iteration of the event loop. If a timer function is executed outside of a module, the behavior will be random (non-deterministic).
+
+The setImmediate() function is often compared with the setTimeout() function. When setImmediate() is called, it executes the specified callback function after the current (poll phase) is completed. The method accepts two parameters: the callback function (required) and arguments for the callback function (optional). If you instantiate multiple setImmediate() functions, they will be queued for execution in the order that they were created.
+
+```js
+setImmediate(() => {
+  console.log("hi");
+});
+```
 
 <br>
