@@ -60,7 +60,7 @@ process.argv[2]; // testing
 
 <br>
 
-<!-- ## User Input / Output
+## User Input / Output
 
 Readable and writable stream instances:
 
@@ -88,5 +88,3 @@ Here, we were able to use `.on()` because under the hood `process.stdin` is an i
 When a user enters text into the terminal and hits enter, a `'data'` event will be fired and our anonymous listener callback will be invoked.
 
 The `userInput` we receive is an instance of the Node `Buffer` class, so we convert it to a string before printing.
-
-<br> -->
