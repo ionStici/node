@@ -1,10 +1,7 @@
-# Node.js
+# Modules in Node.js
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Execute JavaScript Code with Node](#execute-javascript-code-with-node)
-- [The `global` Object](#the-global-object)
 - [Core Modules](#core-modules)
   - [CommonJS Modules](#commonjs-modules)
   - [ES Modules](#es-modules)
@@ -12,29 +9,13 @@
 - [Implementing Modules in Node](#implementing-modules-in-node)
   - [CommonJS: `require` / `module.exports`](#commonjs-require--moduleexports)
   - [ES Modules: `import` / `export`](#es-modules-import--export)
-- [What is REPL](#what-is-repl)
-
-## Introduction
-
-[**Node.js**](https://nodejs.org) is a JavaScript runtime, an environment where JavaScript code is executed.
-
-A **runtime** converts code written in a high-level programming language and compiles it down to code the computer can execute.
-
-## Execute JavaScript Code with Node
-
-- **Node REPL** : Access the Node REPL by typing the command `node` in the terminal. REPL displays the return of each evaluated like. If you'd like to type multiple lines and then have them evaluated at once, type `.editor` to enter editor mode, and then press `control` + `d` for the input to be evaluated.
-
-- **Execute File** : To execute a JavaScript file with node, specify the file name to the `node` command, for example `node index.js`.
-
-## The `global` Object
-
-The Node environment contains a number of Node-specific global elements. Every Node-specific global property sits inside the Node `global` object. This object contains a number of useful properties and methods that are available anywhere in the Node environment. `Window` is the equivalent to `global`, but for the browser.
+- [The `global` Object](#the-global-object)
 
 ## Core Modules
 
-**Module** : a collection of code located in a file.
+**Module** : reusable code located in a file that can be exported and then imported for use in another file (_separation of concerns_).
 
-**Core Modules** : (built-in modules) are modules provided by Node.js to perform common tasks efficiently. These modules are part of Node's source code and reside in the **lib/** folder. Since they are built-in, you do not need to install them using a package manager like npm.
+**Core Modules** : (built-in modules) are modules provided by Node.js to perform common tasks efficiently. These modules are part of Node's source code and reside in the **lib/** folder.
 
 ### CommonJS Modules
 
@@ -124,6 +105,6 @@ addTwo(3);
 
 Unlike CommonJS, ES modules are imported **asynchronously** using the import statement.
 
-## What is REPL
+## The `global` Object
 
-**REPL** (read-eval-print loop) is a program that loops through three different states: a **read** state where the program reads input from the user, the **eval** state where the program evaluates the user's input, and the **print** state where the program prints out its evaluation to the console. Then it **loops** through these states again.
+The Node environment contains a number of Node-specific global elements. Every Node-specific global property sits inside the Node `global` object. This object contains a number of useful properties and methods that are available anywhere in the Node environment. `Window` is the equivalent to `global`, but for the browser.

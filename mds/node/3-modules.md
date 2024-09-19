@@ -1,10 +1,5 @@
-[&larr; Back](./README.md)
-
 # Modules
 
-[Node Modules Documentation](https://nodejs.org/docs/latest-v14.x/api/modules.html)
-
-- **Modules** are reusable pieces of code in a file that can be exported and then imported for use in another file (_separation of concerns_).
 - A **modular** program is one whose components can be separated, used individually, and recombined to create a complex system.
 
 There are two JavaScript runtime environments, each with a different module system:
