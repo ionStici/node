@@ -5,15 +5,17 @@
 - [Core Modules](#core-modules)
   - [CommonJS Modules](#commonjs-modules)
   - [ES Modules](#es-modules)
-  - [The Console Module](#the-console-module)
 - [Implementing Modules in Node](#implementing-modules-in-node)
   - [CommonJS: `require` / `module.exports`](#commonjs-require--moduleexports)
   - [ES Modules: `import` / `export`](#es-modules-import--export)
 - [The `global` Object](#the-global-object)
+- [The Console Module](#the-console-module)
 
 ## Core Modules
 
 **Module** : reusable code located in a file that can be exported and then imported for use in another file (_separation of concerns_).
+
+**A Modular Program** is one whose components can be separated, used individually, and recombined to create a complex system.
 
 **Core Modules** : (built-in modules) are modules provided by Node.js to perform common tasks efficiently. These modules are part of Node's source code and reside in the **lib/** folder.
 
@@ -45,16 +47,6 @@ In **ES Modules** (ECMAScript modules), you use the `import` statement to bring 
 import fs from "fs";
 ```
 
-### The Console Module
-
-The built-in `console` global module, provides methods such as:
-
-- `console.log()` — print messages to the terminal.
-- `console.assert()` — print a message to the terminal if the value is falsy.
-- `console.table()` — print out a table in the terminal from an object or array.
-
-Because `console` is a global module, it can be accessed from anywhere, the `require` function is not necessary.
-
 ## Implementing Modules in Node
 
 In Node.js, each file is treated as a separate module. There are two main ways to work with modules in Node.js: **CommonJS** and **ES modules**.
@@ -81,7 +73,7 @@ const { addTwo } = require("./addTwo.cjs");
 addTwo(3);
 ```
 
-n **CommonJS**, `require()` is used to load modules **synchronously**, making the exported functions or objects from one file available to others.
+In **CommonJS**, `require()` is used to load modules **synchronously**, making the exported functions or objects from one file available to others.
 
 ### ES Modules: `import` / `export`
 
@@ -108,3 +100,13 @@ Unlike CommonJS, ES modules are imported **asynchronously** using the import sta
 ## The `global` Object
 
 The Node environment contains a number of Node-specific global elements. Every Node-specific global property sits inside the Node `global` object. This object contains a number of useful properties and methods that are available anywhere in the Node environment. `Window` is the equivalent to `global`, but for the browser.
+
+## The Console Module
+
+The built-in `console` global module, provides methods such as:
+
+- `console.log()` — print messages to the terminal.
+- `console.assert()` — print a message to the terminal if the value is falsy.
+- `console.table()` — print out a table in the terminal from an object or array.
+
+Because `console` is a global module, it can be accessed from anywhere, the `require` function is not necessary.

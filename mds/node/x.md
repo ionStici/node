@@ -1,54 +1,6 @@
-[&larr; Back](./README.md)
+modules essential to back-end development
 
-## The OS Module
-
-```js
-const os = require("os");
-
-const local = {
-  "Operating System": os.type(), // computer's operating system
-  "CPU architecture": os.arch(), // operating system CPU architecture
-  "Network Interfaces": os.networkInterfaces(), // network interfaces (IP / MAC)
-  "Home Directory": os.homedir(), // current user's home directory
-  Hostname: os.hostname(), // the hostname of the operating system
-  "Last Reboot": os.uptime(), //the system uptime (in seconds)
-};
-```
-
-<br>
-
-## The Util Module
-
-The Node `util` core module contains methods specifically designed for utility purposes.
-
-```js
-const util = require("util");
-```
-
-The `types` utility object provides methods for runtime type checking in Node.
-
-```js
-const today = new Date();
-console.log(util.types.isDate(today)); // true
-```
-
-Here we do type checking using `util.types.isDate()`. It will check for `Date` objects and returns a boolean value.
-
-<br>
-
-### promisify
-
-`util.promisify()` method will turn callback functions into promises.
-
-```js
-const getUser = function () {};
-const getUserPromise = util.promisify(getUser);
-getUserPromise(id).then().catch();
-```
-
-The `getUser` method is turned into a promise using the `.promisify()` method.
-
-<br>
+events, error, buffer, fs, and timer modules.
 
 ## The Events Module
 
@@ -162,26 +114,6 @@ const bufferConcat = Buffer.concat([buffer1, buffer2]);
 `concat()` comes in handy because a `Buffer` object can’t be resized.
 
 <br>
-
-## The FS Module
-
-All of the data on a computer is organized and accessed through a filesystem. When running JavaScript code on a browser, it’s important for a script to have only limited access to a user’s filesystem. This technique of isolating some applications from others is known as sandboxing. Sandboxing protects users from malicious programs and invasions of privacy.
-
-In the back-end, however, less restricted interaction with the filesystem is essential. The Node `fs` core module is an API for interacting with the file system. It was modeled after the POSIX standard for interacting with the filesystem.
-
-Each method available through the `fs` module has a synchronous version and an asynchronous version. One method available on the `fs` core module is the `.readFile()` method which reads data from a provided file:
-
-```js
-const fs = require("fs");
-
-fs.readFile("./file.txt", "utf-8", readDataCallback);
-```
-
-We invoked the `.readFile()` method with three arguments:
-
-1. The first argument is a string that contains a path to the file file.txt.
-2. The second argument is a string specifying the file’s character encoding (usually ‘utf-8’ for text files).
-3. The third argument is the callback function to be invoked when the asynchronous task of reading from the file system is complete. Node will pass the contents of file.txt into the provided callback as its second argument.
 
 <br>
 

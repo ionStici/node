@@ -3,8 +3,6 @@
 ## Table of Contents
 
 - [Introduction to Express](#introduction-to-express)
-  - [Installation](#installation)
-  - [Basic Setup](#basic-setup)
 - [Routes and Responses](#routes-and-responses)
 - [Matching Route Paths](#matching-route-paths)
 - [Dynamic Route Parameters in Express](#dynamic-route-parameters-in-express)
@@ -14,6 +12,8 @@
 - [Creating Resources with POST in Express](#creating-resources-with-post-in-express)
 - [Deleting Resources with DELETE in Express](#deleting-resources-with-delete-in-express)
 - [Express CRUD Code Example](#express-crud-code-example)
+- [Using Express Routers](#using-express-routers)
+- [Using Multiple Router Files in Express](#using-multiple-router-files-in-express)
 
 ## Introduction to Express
 
@@ -175,7 +175,7 @@ app.use(express.json()); // Middleware to parse JSON request bodies
 let items = []; // In-memory storage (would be a database in real-world apps)
 
 // 1. CREATE - POST request
-app.POST("/items", (req, res) => {
+app.post("/items", (req, res) => {
   const newItem = { id: items.length + 1, name: req.body.name };
   items.push(newItem);
   res.status(201).send(newItem);
@@ -236,3 +236,59 @@ app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 5. **DELETE (DELETE `/items/:id`):**
 
    The server deletes an item by its ID when a `DELETE` request is made. It responds with a `204 No Content` status, indicating successful deletion without returning any content.
+
+## Using Express Routers
+
+**Express Routers** allow you to organize and manage different routes in your application, enabling a modular structure that helps separate route handling logic into smaller, more manageable components.
+
+An Express Router provides a way to create modular and flexible route handling.
+
+You can create a router instance by calling `express.Router()`, and then mount it on a specific path using `app.use()`.
+
+```js
+const productsRouter = express.Router();
+app.use("/products", productsRouter);
+
+productsRouter.get("/:id", (req, res) => {});
+```
+
+_How it works:_
+
+- The `productsRouter` handles routes starting with `/products`. For example, `productsRouter.get("/:id")` matches the full path `/products/:id`.
+
+- When a `GET /products/1` request arrives, the `/products` path is matched by `app.use()`, and Express looks into the router for further path matching.
+
+## Using Multiple Router Files in Express
+
+To keep the code modular and manageable, it's common practice to place each router in its own file. This keeps the main application file clean and organized.
+
+```js
+// items.js
+import express from "express";
+
+const itemsRouter = express.Router();
+
+const items = [];
+
+itemsRouter.get("/:id", (req, res) => {
+  const item = items[req.params.id];
+
+  if (item) {
+    res.send(item);
+  } else {
+    res.status(404).send("Not Found");
+  }
+});
+
+export { itemsRouter };
+```
+
+```js
+// index.js
+import express from "express";
+import { itemsRouter } from "./itemsRouter";
+
+const app = express();
+
+app.use("/items", itemsRouter);
+```
