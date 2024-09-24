@@ -1,4 +1,6 @@
-# NestJS CLI
+# Getting Started with NestJS
+
+[**NestJS**](https://docs.nestjs.com) is a powerful, progressive Node.js framework for building efficient and scalable server-side applications. It uses TypeScript by default and provides a structured way to develop applications with built-in support for routing, services, modules, and much more.
 
 ```bash
 # Install Nest CLI globally

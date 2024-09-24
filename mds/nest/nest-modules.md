@@ -3,46 +3,48 @@
 ## Table of Contents
 
 - [Introduction](#introduction)
+  - [Key Files in a Module](#key-files-in-a-module)
 - [`main.ts` Entry Point](#maints-entry-point)
 - [The App Module](#the-app-module)
-  - [app.module.ts](#appmodulets)
-  - [app.controller.ts](#appcontrollerts)
-  - [app.service.ts](#appservicets)
+- [Controllers](#controllers)
+- [Services](#services)
 - [Creating a New Module](#creating-a-new-module)
-  - [Import and Use the Module](#import-and-use-the-module)
-  - [Create a module using NestJS CLI](#create-a-module-using-nestjs-cli)
+  - [Connecting the New Module to App Module](#connecting-the-new-module-to-app-module)
+  - [Generating Modules via CLI](#generating-modules-via-cli)
 
 ## Introduction
 
-- A **module** encapsules functionality, grouping related files for one aspect of the app.
+- A **module** in NestJS encapsules functionality by grouping related files for a specific aspect of the app.
 
-- The first file accessed by NestJS is `main.ts`, which is further connected to `app.module.ts`.
+- The first file accessed by NestJS is `main.ts`, which is connected to the root module, `app.module.ts`.
 
-- `app.module.ts` is the main module of a NestJS app, and is used to connect to other modules.
+- `app.module.ts` is the main module that connects other modules, forming the core of the application.
 
-- Everything related to the **Users** functionality would be inside a `users` module, and then connected to the **app** module.
+- For example, the **Users** functionality would be encapsulated in a `users.module.ts`, and then linked to the **app** module.
 
-- `users.module.ts` : primary file of a module.
+### Key Files in a Module
 
-- `users.controller.ts` : handles routing and API endpoints.
+- `users.module.ts` : The primary file that organizes related files for users.
 
-- `users.service.ts` : responsible for the business logic and data handling.
+- `users.controller.ts` : Handles routing and API endpoints for users.
 
-- `users.entity.ts` : defines database structure (used with ORMs like TypeORM).
+- `users.service.ts` : Manages business logic and data handling.
 
-- `users.controller.spec.ts` test file for controller.
+- `users.entity.ts` : Defines the database structure (used with ORMs like TypeORM).
 
-- A module can have other files responsible for specific tasks.
+- `users.controller.spec.ts` A test file for controller.
+
+- A module can have other files based on the app’s needs.
 
 - Every module must be linked to `app.module.ts`, to be identified by NestJS.
 
-- NestJS starts bootstrapping from `main.ts`, continues to `app.module.ts`, and further to other modules connected to the **app** module.
+- NestJS starts bootstrapping from `main.ts`, proceeds to `app.module.ts`, and continues through other connected modules.
 
-- Modules can be connected to each other using **dependency injection**.
+- Modules can be connected between each other using **dependency injection**.
 
 ## `main.ts` Entry Point
 
-The code below reflects the entry point of a NestJS application, where the app is bootstrapped and started.
+This file is the **entry point** of a NestJS application, where the app is initialized and started:
 
 ```ts
 // src/main.ts
@@ -56,29 +58,18 @@ async function bootstrap() {
 bootstrap();
 ```
 
-- `NestFactory` : is a class provided by NestJS to create and initialize an application instance. It provides methods for starting a NestJS application.
-
-- `AppModule` : is the root module of the application. All other modules and services are connected through it.
-
-- `async function bootstrap() { ... }` : this is the main function that starts the app
-
-- `const app = await NestFactory.create(AppModule)` : This creates an instance of the NestJS application by using the root module.
-
-- `await app.listen(3000)` : This starts the server and listens for incoming HTTP requests on port 3000.
-
-- `bootstrap()` : calls the function to start the application.
+- `NestFactory` : A NestJS class used to create and initialize an application instance.
+- `AppModule` : The root module, connecting all other modules and services.
+- `bootstrap()` : The main function that starts the app
+- `NestFactory.create(AppModule)` : Initializes the app using the root module.
+- `app.listen(3000)` : Starts the server and listens on port 3000 for incoming requests.
 
 ## The App Module
 
-**`app.module.ts`** is the only module that is imported into the `main.ts` file for bootstrapping the entire NestJS application.
-
-`app.controller, ts` `app.controller.spec.ts` `app.service.ts` - All these files collectively constitute a module.
-
-For convenience we could create an `app` directory and place all the files related to the **app** module into this directory.
-
-### `app.module.ts`
+**`app.module.ts`** is the core module imported into `main.ts` to bootstrap the entire application. It connects controllers and services.
 
 ```ts
+// app.module.ts
 import { Module } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
@@ -91,25 +82,28 @@ import { AppService } from "./app.service";
 export class AppModule {}
 ```
 
-- `Module` - is a decorator that marks the class as a NestJS module. It is used to organize related functionality into a cohesive block.
+- `Module` : Decorator that marks a class as a NextJS module, used to organize related functionality into a cohesive block.
 
-- `AppController` - handles routing and HTTP requests.
+- `@Module({ ... })` : Configures the module.
 
-- `AppService` - contains the business logic and functionality of the app.
-
-- `@Module({ ... })` - this is the key decorator that configures the module.
-
-- `imports: []` - Here, you would import other modules that this module depends on.
+- `imports: []` - Define other modules that this module depends on.
 
 - `controllers: [AppController]` - Specifies the controllers for this module.
 
-- `providers: [AppService]` - Lists the services that provide business logic or functionality.
+  - `AppController` handles incoming HTTP requests (routing).
 
-- `export class AppModule {}` - This defines the `AppModule` class, which is the root module of the application, and is the entry point to the rest of the app's functionality.
+- `providers: [AppService]` - Lists services that provide business logic or other features.
 
-### `app.controller.ts`
+  - `AppService` contains business logic and core functionality.
+
+- `export class AppModule {}` - Defines `AppModule`, the root module of the application, providing an entry point for the rest of the app's functionality.
+
+## Controllers
+
+`app.controller.ts` defines the logic for handling HTTP requests. Controllers direct incoming requests to appropriate services.
 
 ```ts
+// app.controller.ts
 import { Controller, Get } from "@nestjs/common";
 import { AppService } from "./app.service";
 
@@ -124,9 +118,20 @@ export class AppController {
 }
 ```
 
-### `app.service.ts`
+- `@Controller()` : Marks the class as a controller. It handles incoming requests, in this case at the root path (`/`).
+
+- `@Get()` : Maps the `getHello()` method to handle HTTP GET requests.
+
+- `AppService` : Injected into the controller to provide business logic.
+
+- **Dependency Injection**: The `AppService` is injected via the constructor, allowing the controller to use its methods.
+
+## Services
+
+`app.service.ts` contains the business logic, which can be shared across the application via **dependency injection**.
 
 ```ts
+// app.service.ts
 import { Injectable } from "@nestjs/common";
 
 @Injectable()
@@ -137,9 +142,13 @@ export class AppService {
 }
 ```
 
+- `@Injectable` : This decorator marks the class as a provider (service) that can be injected into other classes, such as controllers.
+
+- `AppService` : Contains the app business logic.
+
 ## Creating a New Module
 
-What makes a class a module is adding the `Module` NestJS decorator. This `Module` decorator takes in an object where you define different import providers as well as exports.
+To create a new module, you add the `@Module` decorator to a class, which allows NestJS to recognize and use it.
 
 ```ts
 // users/users.module.ts
@@ -149,11 +158,11 @@ import { Module } from "@nestjs/common";
 export class UsersModule {}
 ```
 
-A module in itself is just this kind of structure where you add the `Module` decorator to the module class. In order for NestJS to identify this newly created module we need to connect it to the main **app** module.
+This structure is the foundation of a module. To make it functional, you need to connect it to `app.module.ts`.
 
-### Import and Use the Module
+### Connecting the New Module to App Module
 
-Create a module using NestJS CLI
+After creating a module, it must be imported and registered in the app module for NestJS to recognize it:
 
 ```ts
 // app.module.ts
@@ -165,10 +174,10 @@ import { UsersModule } from "src/users/users.module";
 export class AppModule {}
 ```
 
-### Create a module using NestJS CLI
+### Generating Modules via CLI
 
 ```bash
 nest generate module users
 ```
 
-This command will generate a new `users` module just like above.
+This command creates a new `users` module and adds it to the project automatically.
