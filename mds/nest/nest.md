@@ -7,4 +7,5 @@
 - [Getting Started with NestJS](./getting-started.md)
 - [Modules in NestJS](./nest-modules.md)
 - [REST APIs Explained](./rest-api.md)
+- [Endpoints Explained](./endpoints.md)
 - [Controllers](./controllers.md)
