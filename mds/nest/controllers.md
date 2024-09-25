@@ -11,7 +11,9 @@ A **controller** in an application handles all routing logic. Its main function 
   - [How the Decorators Work](#how-the-decorators-work)
   - [Testing the Endpoints using httpYac](#testing-the-endpoints-using-httpyac)
 - [`Params` and `Query` in NestJS Controllers](#params-and-query-in-nestjs-controllers)
-- [Request Body, Headers, Ip](#request-body-headers-ip)
+  - [Summary](#summary)
+- [Request Body, Headers, Ip in NestJS Controllers](#request-body-headers-ip-in-nestjs-controllers)
+  - [Use Cases](#use-cases)
 - [Providers](#providers)
 
 ## Creating Controllers
@@ -131,6 +133,7 @@ PUT http://localhost:3000/users
 ## `Params` and `Query` in NestJS Controllers
 
 ```ts
+// GET http://localhost:3000/123/hi/?limit=10&page=2
 import { Controller, Get, Param, Query } from "@nestjs/common";
 
 @Controller("users")
@@ -143,9 +146,22 @@ export class UsersController {
 }
 ```
 
+- `@Get("/:id/:optional?")` : this defines a GET route that accepts dynamic parameters in the URL. `:id` a required param and `:optional?` an optional param.
+
+- `@Params() params: any` : used to capture **route params** form the URL. `params` will be an object containing the values of `id` and `optional` if they exist.
+
+- `@Query() query: any` : captures **query params** sent in the URL after the `?`.
+
 - `getUsers(@Param('id') id: any, @Query('limit') limit: any)` : retrieving specific params or queries.
 
-## Request Body, Headers, Ip
+### Summary
+
+- **Route Parameters** (accessed using `@Param()`) are dynamic parts of the URL and are used to identify specific resources.
+- **Query Parameters** (accessed using `@Query()`) are additional key-value pairs appended to the URL that can modify or filter the results.
+
+## Request Body, Headers, Ip in NestJS Controllers
+
+In NestJS, when handling HTTP requests, it's common to need access to various parts of the request, such as the **body** (payload), **headers**, and the client's **IP address**. The NestJS framework provides built-in decorators like `@Body()`, `@Headers()`, and `@Ip()` to easily access these parts of the request.
 
 ```ts
 import { Controller, Post, Body, Headers, Ip } from "@nestjs/common";
@@ -161,7 +177,19 @@ export class UsersController {
 }
 ```
 
-- `createUsers(@Body('email') email: any)` : retrieving specific properties from request body.
+- `@Body()` : decorator used to capture the **body** (payload) of the incoming POST request.
+
+- `@Headers()` : captures all the HTTP **headers** sent with the request. Headers contain metadata such as content type, authorization tokens, or custom data.
+
+- `@Ip()` : captures the client's IP address from the incoming request. This is useful for logging or restricting access based on IP.
+
+- `createUsers(@Body('email') email: any)` : retrieving specific properties from request body. This body usually contains the data sent by the client (e.g., JSON data for creating a new user).
+
+### Use Cases
+
+- `@Body()`: Used for retrieving the request body in POST, PUT, and PATCH requests. For example, creating or updating resources (like users or posts).
+- `@Headers()`: Used for accessing metadata such as authentication tokens, custom headers, or content type. It is useful for tasks like validating security tokens (e.g., JWT).
+- `@Ip()`: Useful for logging the client's IP address or restricting access based on location or security policies.
 
 ## Providers
 
