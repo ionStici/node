@@ -104,29 +104,29 @@ NestJS uses Express.js under the hood for requests and responses.
 ### Testing the Endpoints using httpYac
 
 ```bash
-# users.get.endpoint.http | GET Request
+# users.get.endpoints.http | GET Request
 GET http://localhost:3000/users/123/?limit=10&offset=20
 ```
 
 ```bash
-# users.post.endpoint.http | POST Request
+# users.post.endpoints.http | POST Request
 POST http://localhost:3000/users
 Content-Type: application/json
 { "email": "john@doe.com", "password": "password123" }
 ```
 
 ```bash
-# users.delete.endpoint.http | DELETE Request
+# users.delete.endpoints.http | DELETE Request
 DELETE http://localhost:3000/users
 ```
 
 ```bash
-# users.patch.endpoint.http | PATCH Request
+# users.patch.endpoints.http | PATCH Request
 PATCH http://localhost:3000/users
 ```
 
 ```bash
-# users.put.endpoint.http | PUT Request
+# users.put.endpoints.http | PUT Request
 PUT http://localhost:3000/users
 ```
 

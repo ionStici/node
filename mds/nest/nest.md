@@ -12,11 +12,12 @@
 - [REST APIs Explained](./rest-api.md)
 - [Endpoints Explained](./endpoints.md)
 
-<div></div>
+### Controllers and Validation
 
 - [NestJS Controllers](./controllers.md)
-
-### Validation
-
 - [Pipes in NestJS](./pipes.md)
-- [Data Transfer Objects](./dto.md)
+
+<div></div>
+
+- [Data Transfer Objects (DTOs)](./dto.md)
+- [Params and Mapped Types](./mapped-types.md)
