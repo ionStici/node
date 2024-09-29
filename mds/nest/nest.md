@@ -22,6 +22,12 @@
 - [Data Transfer Objects (DTOs)](./dto.md)
 - [Params and Mapped Types](./mapped-types.md)
 
-## Dependency Injection
+### Dependency Injection
 
 - [Dependency Injection Intro](./depend-injection.md)
+- [Injectable Provider Example](./provider-example.md)
+
+<div></div>
+
+- [Inter-Module Dependency Injection](./inter-module-dep.md)
+- [Circular Dependency Injection](./circular-dep.md)

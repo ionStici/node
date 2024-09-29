@@ -15,6 +15,7 @@
   - [Connect Providers in Modules](#connect-providers-in-modules)
   - [Injecting the Provider into Other Classes](#injecting-the-provider-into-other-classes)
 - [Module Encapsulation and Sharing](#module-encapsulation-and-sharing)
+- [Types Of Dependencies in NestJS](#types-of-dependencies-in-nestjs)
 
 ## What is Dependency Injection
 
@@ -115,3 +116,11 @@ In NestJS, modules encapsulate all the services, controllers, and other provider
   exports: [UserService],
 })
 ```
+
+## Types Of Dependencies in NestJS
+
+1. **Intra-modular Dependency Injection:** _dependency within a single module_, where one component or service depends on another within the same module.
+
+2. **Inter-Module Dependency Injection:** _dependencies between different modules_.
+
+3. **Circular Dependencies:** _two modules depend on each other_.
