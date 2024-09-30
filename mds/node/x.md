@@ -1,7 +1,3 @@
-modules essential to back-end development
-
-events, error, buffer, fs, and timer modules.
-
 ## The Events Module
 
 Node - event-driven architecture.

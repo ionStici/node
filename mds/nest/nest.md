@@ -29,5 +29,15 @@
 
 <div></div>
 
-- [Inter-Module Dependency Injection](./inter-module-dep.md)
+- [Inter-Module Dependency](./inter-module-dep.md)
 - [Circular Dependency Injection](./circular-dep.md)
+
+### Documentation
+
+- [Intro to Swagger and OpenAPIs](./swagger-intro.md)
+- [Documenting with Swagger](./swagger.md)
+
+<div></div>
+
+- [Complex DTO with Swagger](./dto-swagger.md)
+- [Compodoc and JSDoc](./compodoc.md)
