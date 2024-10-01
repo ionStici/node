@@ -1,3 +1,47 @@
+### Buffers:
+
+Buffers in Node.js are used to handle binary data. When dealing with streams of data (e.g., files or TCP streams), Node.js uses buffers to efficiently process binary information.
+
+```js
+Copy code
+const buffer = Buffer.from('Hello, World!');
+console.log(buffer.toString()); // Outputs 'Hello, World!'
+Buffers allow for handling binary data directly, which is essential for file systems, network communication, and other low-level data management.
+```
+
+### Cluster Module:
+
+By default, Node.js runs single-threaded, but you can create multiple instances of the event loop to scale across multi-core systems using the Cluster module. This helps to utilize the full potential of modern processors.
+
+```js
+const cluster = require("cluster");
+const http = require("http");
+
+if (cluster.isMaster) {
+  cluster.fork(); // Create worker processes
+} else {
+  http
+    .createServer((req, res) => {
+      res.writeHead(200);
+      res.end("Hello World\n");
+    })
+    .listen(8000);
+}
+```
+
+### Worker Threads:
+
+Introduced in Node.js 10.5, **worker threads** allow running JavaScript code in parallel, which can be useful for CPU-intensive tasks. Unlike the event loop, worker threads handle computation-heavy processes without blocking the main thread.
+
+```js
+const { Worker } = require("worker_threads");
+const worker = new Worker("./worker.js");
+
+worker.on("message", (msg) => {
+  console.log(msg);
+});
+```
+
 ## The Events Module
 
 Node - event-driven architecture.

@@ -41,3 +41,8 @@
 
 - [Complex DTO with Swagger](./dto-swagger.md)
 - [Compodoc and JSDoc](./compodoc.md)
+
+### Databases
+
+- [TypeORM and SQL Databases](./typeorm-intro.md)
+- [Create: Entity & Repository](./entity.md)
