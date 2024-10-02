@@ -46,3 +46,7 @@
 
 - [TypeORM and SQL Databases](./typeorm-intro.md)
 - [Create: Entity & Repository](./entity.md)
+
+<div></div>
+
+- [Database Relations](./database-relations.md)

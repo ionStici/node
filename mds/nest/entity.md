@@ -2,18 +2,19 @@
 
 ## Table of Contents
 
-- [Introduction]()
-- [Creating the User Entity]()
-  - [Adding the User Entity to TypeORM Configuration]()
-  - [Key Considerations]()
-  - [Best Practice - Keep DTO and Entity in Sync]()
-- [Creating the Repository]()
-  - [User Service with Repository Injection]()
-  - [Module Setup]()
-  - [User Controller]()
-  - [Making a POST request using httpYac]()
-  - [Key Concepts]()
-  - [Summary]()
+- [Introduction](#introduction)
+- [Creating the User Entity](#creating-the-user-entity)
+  - [Adding the User Entity to TypeORM Configuration](#adding-the-user-entity-to-typeorm-configuration)
+  - [Key Considerations](#key-considerations)
+  - [Best Practice - Keep DTO and Entity in Sync](#best-practice---keep-dto-and-entity-in-sync)
+- [Creating the Repository](#creating-the-repository)
+  - [User Service with Repository Injection](#user-service-with-repository-injection)
+  - [Module Setup](#module-setup)
+  - [User Controller](#user-controller)
+  - [Making a POST request using httpYac](#making-a-post-request-using-httpyac)
+  - [Key Concepts](#key-concepts)
+  - [Summary](#summary)
+- [More Decorators and Configuration Options](#more-decorators-and-configuration-options)
 
 ## Introduction
 
@@ -78,6 +79,7 @@ _Column Configurations:_
 - `length` : Limits the number of characters allowed in the column.
 - `nullable` : Specifies whether the column can have a `null` value.
 - `unique` : Ensures that the value is unique across all rows in the table.
+- `default` : Sets a default value.
 
 _Resources:_
 
@@ -157,9 +159,8 @@ export class UsersService {
     // Handle exception
 
     // Create a new user
-    let newUser = this.usersRepository.create(createUserDto);
-    newUser = await this.usersRepository.save(newUser);
-    return newUser;
+    const newUser = this.usersRepository.create(createUserDto);
+    return await this.usersRepository.save(newUser);
   }
 }
 ```
@@ -174,6 +175,10 @@ _Create User Method:_
 - `findOne`: Searches the database to check if a user with the provided email already exists.
 - `create`: Creates a new user instance without persisting it to the database.
 - `save`: Saves the user instance to the database.
+
+_await:_
+
+- Only when saving a row into the database you need to use the `await` keyword because it returns a promise, when creating an entry using `create` you don't need the `await` keyword.
 
 ### Module Setup
 
@@ -244,3 +249,27 @@ Content-Type: application/json
 - **Repository Setup:** We injected the **User repository** into `UsersService` using the `@InjectRepository` decorator.
 - **CRUD Operations:** We used the repository to create and save a user in the database.
 - **DTO and Entity Synchronization:** Ensured that the **DTO** and **entity** definitions align to avoid discrepancies during validation and persistence.
+
+## More Decorators and Configuration Options
+
+[Decorator Reference](https://orkhan.gitbook.io/typeorm/docs/decorator-reference)
+
+```ts
+import { CreateDateColumn, DeleteDateColumn, Entity, UpdateDateColumn } from "typeorm";
+
+@Entity()
+export class Item {
+  @CreateDateColumn()
+  createData: Date;
+
+  @UpdateDateColumn()
+  updateDate: Date;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
+}
+```
+
+- **CreateDateColumn:** Automatically sets and saves the date when an entity is first created. Used for tracking when an entity was added to the database.
+- **UpdateDateColumn:** Automatically updates with the current timestamp whenever the entity is updated. Useful for tracking changes and modifications over time.
+- **DeleteDateColumn:** Used to implement soft deletes by recording the date an entity is "deleted." This allows the entity to be flagged as deleted without permanently removing it from the database, enabling recovery if needed.

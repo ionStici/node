@@ -13,6 +13,7 @@
   - [Example Flow of a Validated Request](#example-flow-of-a-validated-request)
 - [Global Pipes and Avoiding Malicious Requests](#global-pipes-and-avoiding-malicious-requests)
   - [Benefits of `transform: true`](#benefits-of-transform-true)
+- [More Decorators](#more-decorators)
 
 ## Introduction
 
@@ -204,3 +205,15 @@ console.log(createUserDto instanceof CreateUserDto); // true
 - **Type-Safe Requests**: Enforces type safety across your app, as request data is automatically transformed into the expected types defined in your DTOs.
 - **Cleaner Controllers**: You don’t need to manually convert data in your controllers; NestJS automatically handles the transformation.
 - **OOP Features**: When a request body is transformed into an instance of a class, you can access class methods, inheritance, and more.
+
+## More Decorators
+
+- `@IsEnum(enum)` : For enums.
+
+- `@IsJSON()` : For Json.
+
+- `@IsUrl()` : For Url.
+
+- `@IsISO8601()` : For ISO dates.
+
+- `@ValidateNested({ each: true })` : Validation applies to nested elements inside the array.

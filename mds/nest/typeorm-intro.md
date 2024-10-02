@@ -49,7 +49,8 @@ import { TypeOrmModule } from "@nestjs/typeorm";
   imports: [
     TypeOrmModule.forRoot({
       type: "postgres",
-      entities: [],
+      // entities: [],
+      autoLoadEntities: true,
       synchronize: true,
       port: 5432,
       username: "postgres",
@@ -76,6 +77,7 @@ _Configuration Options:_
 - `password` : The password for the database user.
 - `database` : The name of the database you want to connect to (e.g., `"nestjs-blog"`).
 - `entities` : An array of entities that represent the database tables.
+- `autoLoadEntities: true` : automatically loads all entities that are connected to their module.
 - `synchronize` : Set to `true` for development to automatically create the database schema based on your entities.
 
   Do not use `synchronize` in production, as it can cause data loss.
