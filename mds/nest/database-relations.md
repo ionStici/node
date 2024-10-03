@@ -104,6 +104,8 @@ export class TodoService {
 
 ## Cascade Creation with Relationships
 
+The `cascade` feature in TypeORM allows linked entities to be automatically handled during operations such as insert, update, or delete.
+
 ```ts
 import { SubTodo } from "src/sub-todo/sub-todo.entity";
 import { Entity, JoinColumn, OneToOne } from "typeorm";
@@ -117,3 +119,26 @@ export class Todo {
   subTodo?: SubTodo;
 }
 ```
+
+- `@OneToOne` : Establishes a one-to-one relationship between `Todo` and `SubTodo`.
+- `cascade: true` : Enables cascading for operations such as `insert`, `update`, `delete` and more. This means when a `Todo` entity is saved, any linked `SubTodo` entity will also be automatically created or updated.
+
+```ts
+@Injectable()
+export class TodoService {
+  public async create(@Body() todoDto, TodoDto) {
+    // Create todo with subTodo directly
+    const todo = this.todoRepository.create(todoDto);
+    return await this.todoRepository.save(todo);
+  }
+}
+```
+
+- **Create and Save Post:** With `cascade: true` set in the `@OneToOne` decorator, when `todoRepository.save(todo)` is called, it not only creates the `Todo` entity but also automatically creates the linked `SubTodo` entity if it is included in `todoDto`.
+
+### Foreign Key Creation
+
+- When cascading, **foreign keys** are handled automatically by TypeORM. Specifically, when you use the `@JoinColumn` decorator in the `Todo` entity, a column named `subTodoId` is automatically generated in the `todo` table to hold the reference to the linked `SubTodo`.
+- When saving a `Todo` instance, TypeORM creates the `subTodo` entity first (if it's new), then uses its primary key to set the foreign key `subTodoId` in the `todo` table.
+
+This cascade behavior simplifies code, allowing you to avoid explicit creation and linking of related entities manually.

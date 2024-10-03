@@ -50,3 +50,8 @@
 <div></div>
 
 - [Database Relations](./database-relations.md)
+- [TypeORM: Querying & Deleting](./typeorm-operations.md)
+
+<div></div>
+
+- [Bidirectional Relationships](./bidirectional-relations.md)
