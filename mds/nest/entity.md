@@ -96,14 +96,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { User } from "./users/user.entity"; // Import the User entity
 
 @Module({
-  imports: [
-    TypeOrmModule.forRootAsync({
-      useFactory: () => ({
-        entities: [User], // Registering the User entity
-        synchronize: true, // Automatically sync the schema with the database (use only in dev)
-      }),
-    }),
-  ],
+  imports: [TypeOrmModule.forFeature([User])], // Registering the User entity
 })
 export class AppModule {}
 ```
@@ -255,7 +248,12 @@ Content-Type: application/json
 [Decorator Reference](https://orkhan.gitbook.io/typeorm/docs/decorator-reference)
 
 ```ts
-import { CreateDateColumn, DeleteDateColumn, Entity, UpdateDateColumn } from "typeorm";
+import {
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  UpdateDateColumn,
+} from "typeorm";
 
 @Entity()
 export class Item {

@@ -55,3 +55,8 @@
 <div></div>
 
 - [Bidirectional Relationships](./bidirectional-relations.md)
+
+<div></div>
+
+- [One-To-Many & Many-To-One](./one-to-many.md)
+- [Many-To-Many Relationships](./many-to-many.md)
