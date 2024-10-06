@@ -41,17 +41,3 @@
 
 - [Complex DTO with Swagger](./dto-swagger.md)
 - [Compodoc and JSDoc](./compodoc.md)
-
-### Databases
-
-- [Database Relations](./database-relations.md)
-- [TypeORM: Querying & Deleting](./typeorm-operations.md)
-
-<div></div>
-
-- [Bidirectional Relationships](./bidirectional-relations.md)
-
-<div></div>
-
-- [One-To-Many & Many-To-One](./one-to-many.md)
-- [Many-To-Many Relationships](./many-to-many.md)

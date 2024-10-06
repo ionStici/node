@@ -30,7 +30,9 @@ const users = await userRepository.find({ select: ["firstName", "lastName"] });
 
 ```ts
 // Retrieves a single entity that matches the criteria.
-const user = await userRepository.findOne({ where: { email } });
+const user = await userRepository.findOne({
+  where: { email: "name@example.com" },
+});
 ```
 
 #### `findOneBy(where): Promise<Entity | null>`
