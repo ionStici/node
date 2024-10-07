@@ -2,21 +2,25 @@
 
 ### Fundamentals
 
-- [Configure TypeORM with PostgreSQL in NestJS](./typeorm-intro.md)
-
+- [Configure TypeORM with PostgreSQL in NestJS](./typeorm-config.md)
 - [Creating and Configuring Database Entities](./entity.md)
 
-- [Repository Injection](./repository.md)
+<div></div>
 
+- [Repository Injection](./repository.md)
 - [Repository Methods / Database Operations](./methods.md)
 
 ### Relationships
 
 - [Types of Relationships](./relationships.md)
+- [Relationship Options](./relationship-options.md)
+
+<div></div>
 
 - [One-to-One (1:1) Relationship](./one-to-one.md)
+- [Operations in (1:1) Relationships](./operations-one-one.md)
 
-<!--
-- [One-To-Many & Many-To-One](./one-to-many.md)
-- [Many-To-Many Relationships](./many-to-many.md)
--->
+<div></div>
+
+- [One-to-Many (1:N) and Many-to-One (N:1)](./one-to-many.md)
+- [Many-to-Many (M) Relationship](./many-to-many.md)

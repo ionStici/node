@@ -54,7 +54,7 @@ const users = await userRepository.findBy({ role: "admin" });
 #### `save(entity | entities): Promise<Entity | Entity[]>`
 
 ```ts
-// Inserts or updates entities in the database.
+// Saves a given entity or array of entities. If the entity already exist in the database, it is updated. If the entity does not exist in the database, it is inserted.
 const newUser = userRepository.create(userData);
 const savedUser = await userRepository.save(newUser);
 ```

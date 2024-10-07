@@ -7,7 +7,7 @@ _Relationships in Relational Databases._
 - Definition: Each record in Entity "A" corresponds to exactly one record in Entity "B", and vice versa.
 - Example: A `User` has one `Profile`, and a `Profile` belongs to one `User`.
 
-### One-to-Many (1) and Many-to-One (N:1)
+### One-to-Many (1:N) and Many-to-One (N:1)
 
 - One-to-Many: A single record in Entity "A" is related to multiple records in Entity "B".
 - Many-to-One: Multiple records in Entity "A" relate to a single record in Entity "B".

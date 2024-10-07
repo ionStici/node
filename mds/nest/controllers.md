@@ -81,7 +81,7 @@ export class UsersController {
     return "Put Request";
   }
 
-  @Delete()
+  @Delete("soft-delete")
   public deleteUser() {
     return "Delete Request";
   }
@@ -92,7 +92,7 @@ export class UsersController {
 - `@Post` : creates a POST endpoint.
 - `@Patch` : creates a PATCH endpoint.
 - `@Put` : Creates a PUT endpoint
-- `@Delete` : Creates a DELETE endpoint.
+- `@Delete` : Creates a DELETE endpoint for the `/users/soft-delete` route.
 
 NestJS uses Express.js under the hood for requests and responses.
 
@@ -169,7 +169,11 @@ import { Controller, Post, Body, Headers, Ip } from "@nestjs/common";
 @Controller("users")
 export class UsersController {
   @Post()
-  public createUsers(@Body() request: any, @Headers() headers: any, @Ip() ip: any) {
+  public createUsers(
+    @Body() request: any,
+    @Headers() headers: any,
+    @Ip() ip: any
+  ) {
     console.log(request);
     console.log(headers);
     console.log(ip);
