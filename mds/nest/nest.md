@@ -46,6 +46,22 @@
 
 - [TypeORM with PostgreSQL in NestJS](./../typeorm/typeorm.md)
 
+### Exception Handling
+
+- [Introduction to Exception Handling](./exceptions-introduction.md)
+- [When to Handle Exceptions](./exceptions-when.md)
+
+<div></div>
+
+- [Exception Handling Model Constraints](./exception-handling.md)
+- [Throw a Custom Exception](./custom-exceptions.md)
+
 ### Environments
 
 - [Environments in NestJS](./environments.md)
+- [Custom Configuration](./custom-configuration.md)
+
+<div></div>
+
+- [Module Configuration](./module-configuration.md)
+- [Validating Environment Variables](./env-validation.md)
