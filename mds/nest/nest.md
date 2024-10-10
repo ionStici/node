@@ -65,3 +65,16 @@
 
 - [Module Configuration](./module-configuration.md)
 - [Validating Environment Variables](./env-validation.md)
+
+### Practical
+
+- [Reusable Pagination Module](./pagination.md)
+
+### Authentication
+
+- [Introduction to Authentication](./auth-intro.md)
+- [Hash Provider using Bcrypt](./hash-bcrypt.md)
+
+<div></div>
+
+- [Sign Up / Sign In Providers](./sign-up.md)

@@ -14,6 +14,7 @@
 - [Global Pipes and Avoiding Malicious Requests](#global-pipes-and-avoiding-malicious-requests)
   - [Benefits of `transform: true`](#benefits-of-transform-true)
 - [More Decorators](#more-decorators)
+- [Nested DTOs with ValidateNested](#nested-dtos-with-validatenested)
 
 ## Introduction
 
@@ -56,7 +57,15 @@ The **DTO** is a class that defines the structure and validation rules for the i
 
 ```ts
 // users/dtos/create-user.dto.ts
-import { IsEmail, IsNotEmpty, IsOptional, IsString, Matches, MaxLength, MinLength } from "class-validator";
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  Matches,
+  MaxLength,
+  MinLength,
+} from "class-validator";
 
 export class CreateUserDto {
   @IsString()
@@ -79,7 +88,8 @@ export class CreateUserDto {
   @IsNotEmpty()
   @MinLength(8)
   @Matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, {
-    message: "Minimum eight characters, at least one letter, one number and one special character",
+    message:
+      "Minimum eight characters, at least one letter, one number and one special character",
   })
   password: string;
 }
@@ -217,3 +227,19 @@ console.log(createUserDto instanceof CreateUserDto); // true
 - `@IsISO8601()` : For ISO dates.
 
 - `@ValidateNested({ each: true })` : Validation applies to nested elements inside the array.
+
+## Nested DTOs with ValidateNested
+
+```ts
+import { IsArray, IsNotEmpty, ValidateNested } from "class-validator";
+import { CreateUserDto } from "./create-user.dto";
+import { Type } from "class-transformer";
+
+export class CreateManyUsersDto {
+  @IsArray()
+  @IsNotEmpty()
+  @ValidateNested({ each: true })
+  @Type(() => CreateUserDto)
+  users: CreateUserDto[];
+}
+```
