@@ -1,6 +1,18 @@
 # Pagination in NestJS
 
+## Table of Contents
+
+- [Building a Reusable Pagination Module](#building-a-reusable-pagination-module)
+  - [DTO for limit and page](#dto-for-limit-and-page)
+  - [Interface for the Response](#interface-for-the-response)
+  - [Reusable Pagination Logic](#reusable-pagination-logic)
+- [Using the Pagination Module](#using-the-pagination-module)
+  - [DTO with additional query parameters](#dto-with-additional-query-parameters)
+  - [Using paginateQuery](#using-paginatequery)
+
 ## Building a Reusable Pagination Module
+
+### DTO for limit and page
 
 ```ts
 // src/common/pagination/dtos/pagination-query.dto.ts
@@ -19,6 +31,10 @@ export class PaginationQueryDto {
   page?: Number = 1;
 }
 ```
+
+`PaginationQueryDto` is a DTO used to handle pagination parameters in API requests. It expects `limit` and `page`, if not provided then it will default to `10` and `1` respectively.
+
+### Interface for the Response
 
 ```ts
 // src/common/pagination/interfaces/paginated.interface.ts
@@ -39,6 +55,21 @@ export interface Paginated<T> {
   };
 }
 ```
+
+The `Paginated` interface defines the structure of the paginated response returned by the API.
+
+- `data` : An array of items of type `T`.
+- `meta` : Contains metadata about the pagination:
+  - `itemsPerPage` : Number of items per page.
+  - `totalItems` : Total number of items.
+  - `currentPage` : The current page number.
+  - `totalPages` : Total number of pages.
+- `links` : Provides URLs for pagination navigation:
+  - `first`, `last`, `current`, `next`, `previous`: URLs to the respective pages.
+
+This interface ensures that all paginated responses have a consistent structure, making it easier for clients to consume the API.
+
+### Reusable Pagination Logic
 
 ```ts
 // src/common/pagination
@@ -106,7 +137,11 @@ export class PaginationService {
 }
 ```
 
+The `PaginationService` provides a reusable method `paginateQuery` that handles the pagination logic for any repository.
+
 ## Using the Pagination Module
+
+### DTO with additional query parameters
 
 ```ts
 // src/posts/dto/get-posts.dto.ts
@@ -130,6 +165,13 @@ export class GetPostsDto extends IntersectionType(
 ) {}
 ```
 
+`GetPostsBaseDto` defines additional query parameters for filtering posts by date, then `GetPostsDto` combines the DTOs in a single DTO using `IntersectionType`.
+
+- `IntersectionType` creates a new class that includes all properties from both classes.
+- This allows the `GetPostsDto` to have both pagination and date filtering properties.
+
+### Using paginateQuery
+
 ```ts
 // src/posts/providers/posts.service.ts
 import { Injectable } from "@nestjs/common";
@@ -150,8 +192,4 @@ export class PostsService {
     return posts;
   }
 }
-```
-
-```
-GET http://localhost:3000/posts/?limit=3&page=1
 ```

@@ -1,14 +1,18 @@
 # Relationship Options
 
-### 1. `cascade`
+- **`{ cascade: true }`** : Automatically apply operations such as insert to related entities.
 
-- **Purpose:** Automatically apply operators to related entities.
+- **`{ eager: true }`** : Automatically load the relation when the owning entity is loaded.
 
-- **Type:** `boolean` or `("insert" | "update" | "remove" | "soft-remove" | "recover")[]`
+- **`{ onDelete: 'CASCADE' }`** : Automatically deletes associated entities.
 
-- `cascade: true` is equivalent to `cascade: ["insert", "update"]`. Default is `false`.
+- **`{ onUpdate: 'CASCADE' }`** : Automatically updates associated entities.
+
+## Example
 
 ```ts
-@OneToMany(() => Post, (post) => post.author, { cascade: true })
+@OneToMany(() => Post, (post) => post.author, { cascade: true });
 posts: Post[];
 ```
+
+**Explanation:** Whe you save an `Author`, any new `Post` entities in `author.posts` will also be saved.

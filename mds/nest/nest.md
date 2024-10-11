@@ -73,8 +73,18 @@
 ### Authentication
 
 - [Introduction to Authentication](./auth-intro.md)
-- [Hash Provider using Bcrypt](./hash-bcrypt.md)
+- [JWT Web Tokens Introduction](./jwt-intro.md)
 
 <div></div>
 
+- [Hash Provider using Bcrypt](./hash-bcrypt.md)
 - [Sign Up / Sign In Providers](./sign-up.md)
+
+<div></div>
+
+- [Configuring JWT in NestJS](./jwt.md)
+- [Generating a JWT Token](./generate-jwt.md)
+
+### Guards
+
+- [Introduction to Guards in NestJS](./guards-introduction.md)

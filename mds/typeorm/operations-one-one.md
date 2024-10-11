@@ -1,14 +1,15 @@
-- [Operating with Relationships Through Repositories](#operating-with-relationships-through-repositories)
-  - [Creating Records with Relations Manually](#creating-records-with-relations-manually)
-  - [Creating Records with Relations using Cascade](#creating-records-with-relations-using-cascade)
-  - [Query with Relations](#query-with-relations)
-  - [Eager Loading](#eager-loading)
-  - [Delete Record along with its Relation](#delete-record-along-with-its-relation)
-  - [Delete Record and Relations using onDelete Option](#delete-record-and-relations-using-ondelete-option)
+# Repository Operations in (1:1) Relationships
 
-## Operating with Relationships Through Repositories
+## Table of Contents
 
-### Creating Records with Relations Manually
+- [Creating Records with Relations Manually](#creating-records-with-relations-manually)
+- [Creating Records with Relations using Cascade](#creating-records-with-relations-using-cascade)
+- [Query with Relations](#query-with-relations)
+- [Eager Loading](#eager-loading)
+- [Delete Record along with its Relation](#delete-record-along-with-its-relation)
+- [Update Record](#update-record)
+
+## Creating Records with Relations Manually
 
 ```ts
 // users.service.ts
@@ -55,7 +56,7 @@ export class UsersService {
 
 - Since `cascade` is not enabled, the `Profile` entity must be (1) created and (2) saved before it is (3) associated with the `User` entity.
 
-### Creating Records with Relations using Cascade
+## Creating Records with Relations using Cascade
 
 `{ cascade: true }` : Automatically saves related entities.
 
@@ -86,7 +87,7 @@ export class UsersService {
 
 `this.userRepository.save(newUser)` at this step, TypeORM first will save the `Profile` entity and assign the `profileId` foreign key to the `User` entity, then will save the `User` entity as well.
 
-### Query with Relations
+## Query with Relations
 
 ```ts
 const user = await this.userRepository.find({
@@ -98,7 +99,7 @@ const user = await this.userRepository.find({
 
 `relations` : Specifies which related entities to load.
 
-### Eager Loading
+## Eager Loading
 
 When querying a record with **eager loading** enabled, any assigned relations will be automatically included.
 
@@ -121,7 +122,7 @@ export class User {
 const user = await this.userRepository.find({ where: { id: 1 } });
 ```
 
-### Delete Record along with its Relation
+## Delete Record along with its Relation
 
 ```ts
 @Injectable()
@@ -140,14 +141,18 @@ export class UsersService {
 
 The `User` and `Profile` entries are deleted individually.
 
-### Delete Record and Relations using onDelete Option
+## Update Record
 
 ```ts
-@Entity()
-export class User {
-  @OneToOne(() => Profile, (profile) => profile.user, { onDelete: "CASCADE" })
-  profile: Profile;
+@Injectable()
+export class UsersService {
+  async updateUser(patchUserDto: PatchUserDto) {
+    const user = await this.userRepository.findOneBy({ id: patchUserDto.id });
+
+    user.email = patchUserDto.email ?? user.email;
+    user.name = patchUserDto.name ?? user.name;
+
+    await this.userRepository.update({ id: patchUserDto.id }, { ...user });
+  }
 }
 ```
-
-The `{ onDelete: 'CASCADE' }` option automatically deletes related records when a referenced record is deleted, maintaining referential integrity.
