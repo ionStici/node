@@ -88,3 +88,8 @@
 ### Guards
 
 - [Introduction to Guards in NestJS](./guards-introduction.md)
+- [Implementing and Using Guards](./guards.md)
+
+<!-- ### Decorators -->
+<!-- - [](./decorators.md) -->
+<!-- - [](./create-decorator.md) -->
