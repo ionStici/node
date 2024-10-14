@@ -1,13 +1,26 @@
 # NestJS
 
+### Introduction
+
 - [NestJS Introduction](./nest-introduction.md)
 - [Controllers](./controllers.md)
 
 <div></div>
 
+### Validation
+
 - [Pipes in NestJS](./pipes.md)
 - [Data Transfer Objects (DTOs)](./dto.md)
 
+<div></div>
+
+- [Essential DTO Decorators](./dto-decorators.md)
+- [Mapped Types](./mapped-types.md)
+
+<!-- ### Dependency Injection -->
+
+<br>
+<br>
 <br>
 
 ### Dependency Injection
