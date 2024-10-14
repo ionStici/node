@@ -1,3 +1,44 @@
+### Key Concepts
+
+1. **Validation Logic in DTOs:**
+
+   - DTOs encapsulates validation rules within a class.
+   - Properties are validated based on rules specified by the decorators.
+
+2. **Automatic Validation:**
+
+   - The `ValidationPipe` automatically validates the incoming request data against the DTO. If the data doesn't pass the validation rules (e.g. an invalid email), NestJS returns a **Bad Request (400)** error.
+
+3. **Modular and Reusable Code:**
+
+   - By separating validation into DTOs, you keep the controller clean and modular. You can reuse the same DTO across multiple controller if needed.
+
+### Example Flow of a Validated Request
+
+1. **Client Request**
+
+   - A client sends a POST request to `/users` with the following body:
+
+   ```json
+   {
+     "name": "John",
+     "email": "john@example.com",
+     "password": "Password123!"
+   }
+   ```
+
+2. **Validation**
+
+   - The `ValidationPipe` checks each field in the request body based on the `CreateUserDto` class. If all validation rules are satisfied, the request proceeds.
+   - If validation failed (e.g., the email is invalid), NestJS automatically returns a 400 Bad Request error with details about the failed validation.
+
+3. **Controller Action**
+
+   - The `createUsers()` method receives the validated and transformed data as an instance of `CreateUserDto`.
+   - The controller processes the data or passes it to the service layer for further operations, like saving the user to a database.
+
+<br>
+
 # DTOs with Params and Mapped Types
 
 ## Table of Contents
@@ -84,3 +125,29 @@ export class UsersController {
   }
 }
 ```
+
+### DTO with additional query parameters
+
+```ts
+// src/posts/dto/get-posts.dto.ts
+import { IntersectionType } from "@nestjs/mapped-types";
+import { IsDate, IsOptional } from "class-validator";
+import { PaginationQueryDto } from "src/common/pagination/dtos/pagination-query.dto";
+
+export class GetPostsBaseDto {
+  @IsDate()
+  @IsOptional()
+  startDate?: Date;
+
+  @IsDate()
+  @IsOptional()
+  endDate?: Date;
+}
+
+export class GetPostsDto extends IntersectionType(GetPostsBaseDto, PaginationQueryDto) {}
+```
+
+`GetPostsBaseDto` defines additional query parameters for filtering posts by date, then `GetPostsDto` combines the DTOs in a single DTO using `IntersectionType`.
+
+- `IntersectionType` creates a new class that includes all properties from both classes.
+- This allows the `GetPostsDto` to have both pagination and date filtering properties.
