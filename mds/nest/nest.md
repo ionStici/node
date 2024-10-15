@@ -17,21 +17,14 @@
 - [Essential DTO Decorators](./dto-decorators.md)
 - [Mapped Types](./mapped-types.md)
 
-<!-- ### Dependency Injection -->
-
-<br>
-<br>
-<br>
-
 ### Dependency Injection
 
-- [Dependency Injection Intro](./depend-injection.md)
-- [Injectable Provider Example](./provider-example.md)
+- [Dependency Injection (DI)](./dependency-injection.md)
+- [Inter-Module and Circular Dependency](./inter-circular-dep.md)
 
-<div></div>
-
-- [Inter-Module Dependency](./inter-module-dep.md)
-- [Circular Dependency Injection](./circular-dep.md)
+<br>
+<br>
+<br>
 
 ### Documentation
 
