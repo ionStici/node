@@ -8,7 +8,6 @@
 
 ## Steps for Implementing Transactions
 
-- In TypeORM, database transactions are managed using the Query Runner class.
 - A transaction is a series of interrelated CRUD operations that either succeed together or fail together.
 - If any part of the transaction fails, all operations are rolled back, ensuring data consistency.
 
@@ -69,7 +68,7 @@ After the transaction is completed (whether successfully or not), release the co
 await queryRunner.release();
 ```
 
-## Creating a new Transaction
+## Creating a Transaction
 
 ```ts
 // users/providers/users-create-many.provider.ts
@@ -125,11 +124,7 @@ export class UsersCreateManyProvider {
 ## Same Example with Exception Handling
 
 ```ts
-import {
-  ConflictException,
-  Injectable,
-  RequestTimeoutException,
-} from "@nestjs/common";
+import { ConflictException, Injectable, RequestTimeoutException } from "@nestjs/common";
 import { DataSource } from "typeorm";
 import { CreateManyUsersDto } from "../dtos/create-many-users.dto";
 import { User } from "../user.entity";

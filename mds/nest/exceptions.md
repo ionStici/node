@@ -1,4 +1,22 @@
-# Exception Handling Model Constraints
+# Exception Handling
+
+## Introduction
+
+**Exceptions** are errors detected during execution that can disrupt the flow of the application. Examples are invalid input, unauthorized access, missing resources, or internal server errors. Handling these errors ensures stability and proper user feedback.
+
+NestJS uses a default **exceptions layer** to manage unhandled errors and return appropriate HTTP responses, such as: 500 Internal Server Error, 400 Bad Request, 404 Not Found, 401 Unauthorized, 403 Forbidden.
+
+NestJS provides [**built-in exception classes**](https://docs.nestjs.com/exception-filters#built-in-http-exceptions) to handle common HTTP errors, examples: `BadRequestException`, `UnauthorizedException`, `NotFoundException`, and many more.
+
+```ts
+throw new NotFoundException("Resource not found");
+```
+
+Exceptions should be managed in **services**, not controllers, keeping the business logic clear.
+
+**Key areas for exception handling:** Database operations, Model constraints, External API Interactions, Middleware.
+
+## Exception Handling Model Constraints
 
 1. **Handling Database Connectivity Issues:**
 
@@ -40,9 +58,7 @@ export class UsersService {
 
     // If user already exists, throw a BadRequestException
     if (existingUser) {
-      throw new BadRequestException(
-        "The user already exists, please check your email."
-      );
+      throw new BadRequestException("The user already exists, please check your email.");
     }
 
     // Create a new user

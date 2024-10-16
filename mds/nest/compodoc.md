@@ -2,7 +2,9 @@
 
 ## Introduction
 
-[**Compodoc**](https://compodoc.app) is a tool for generating documentation for NestJS applications, covering modules, services, controllers, and more. [**JSDoc**](https://jsdoc.app) is used for adding inline comments to improve documentation quality.
+- [**Compodoc**](https://compodoc.app) is a tool for generating documentation for NestJS applications, covering modules, services, controllers, and more.
+
+- [**JSDoc**](https://jsdoc.app) is used for adding inline comments to improve documentation quality.
 
 ## Install Compodoc
 
@@ -21,7 +23,7 @@ npm i @compodoc/compodoc
 }
 ```
 
-- `npx @compodoc/compodoc` : Execute4s Compodoc to generate documentation.
+- `npx @compodoc/compodoc` : Executes Compodoc to generate documentation.
 - `-p tsconfig.json` : Specifies the path to the TypeScript configuration file.
 - `-s` : Instructs Compodoc to serve the documentation.
 - `--post 3001` : Defines the port to server the documentation.

@@ -6,6 +6,9 @@
 - [How Node Works](./how-node-works.md)
 - [Modules in Node.js](./modules.md)
 - [Node Package Manager (npm)](./npm.md)
+
+### The HTTP Module
+
 - [HTTP Server in Node.js](./node-server.md)
 
 ### Node.js Core Modules

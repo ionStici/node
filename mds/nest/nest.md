@@ -22,33 +22,31 @@
 - [Dependency Injection (DI)](./dependency-injection.md)
 - [Inter-Module and Circular Dependency](./inter-circular-dep.md)
 
-<br>
-<br>
-<br>
-
 ### Documentation
 
-- [Intro to Swagger and OpenAPIs](./swagger-intro.md)
-- [Documenting with Swagger](./swagger.md)
-
-<div></div>
-
-- [Complex DTO with Swagger](./dto-swagger.md)
+- [Swagger](./swagger.md)
 - [Compodoc and JSDoc](./compodoc.md)
 
 ### SQL Databases
 
 - [TypeORM with PostgreSQL in NestJS](./../typeorm/typeorm.md)
 
+### Practical
+
+- [Reusable Pagination Module](./pagination.md)
+
 ### Exception Handling
 
-- [Introduction to Exception Handling](./exceptions-introduction.md)
-- [When to Handle Exceptions](./exceptions-when.md)
+- [Exceptions](./exceptions.md)
+- [Custom Exceptions](./custom-exceptions.md)
 
-<div></div>
+### Environments
 
-- [Exception Handling Model Constraints](./exception-handling.md)
-- [Throw a Custom Exception](./custom-exceptions.md)
+<br>
+<br>
+<br>
+<br>
+<br>
 
 ### Environments
 
@@ -59,10 +57,6 @@
 
 - [Module Configuration](./module-configuration.md)
 - [Validating Environment Variables](./env-validation.md)
-
-### Practical
-
-- [Reusable Pagination Module](./pagination.md)
 
 ### Authentication
 
