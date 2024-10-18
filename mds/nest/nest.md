@@ -76,3 +76,10 @@
 - [Creating Custom Decorators](./creating-decorator.md)
 
 <div></div>
+
+- [Guard based on Custom Decorator](./guard-decorator.md)
+- [ActiveUserDecorator](./user-decorator.md)
+
+### Refresh Tokens
+
+- [Refresh Tokens](./refresh-tokens.md)
