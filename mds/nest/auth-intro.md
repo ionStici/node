@@ -54,7 +54,7 @@
 
 ## Key Components of JWT-Based Authentication
 
-- **JWT Token:** A token that carries information about the user and is used for further verification
+- **JWT Token:** A token that carries information about the user and is used for further verification.
 - **Password Hashing:** Protects user passwords by converting them into unreadable strings.
 - **Salting:** Enhances password security by adding randomness to the hash.
 - **Token Verification:** Ensures that only authorized users with valid tokens can access secure endpoints.
@@ -76,7 +76,7 @@
 
 1. The user provides a password during sign-up.
 2. The password is hashed using a hashing algorithm (e.g. `bcrypt`).
-3. The hashes value is saved in the database.
+3. The hashed value is saved in the database.
 4. When the user logs in, the provided password is hashed again using the same algorithm, and the result is compared to the stored hash.
 5. If the hashes match, the user is authenticated.
 

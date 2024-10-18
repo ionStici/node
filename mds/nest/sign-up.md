@@ -91,6 +91,12 @@ export class SignInProvider {
 }
 ```
 
+```makefile
+POST http://localhost:3000/users
+Content-Type: application/json
+Authorization: Bearer <jwt-access-token>
+```
+
 ### Custom Http Status Codes
 
 ```ts
