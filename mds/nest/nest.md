@@ -52,17 +52,18 @@
 
 ### Authentication
 
+<div></div>
+
+- [Configuring JWT in NestJS](./jwt-config.md)
+- [Hash Provider using Bcrypt](./hash-bcrypt.md)
+- [Generate / Refresh Tokens](./jwt-generate-refresh.md)
+
+<div></div>
+
+### Authentication
+
 - [Introduction to Authentication](./auth-intro.md)
 - [JWT Web Tokens Introduction](./jwt-intro.md)
-
-<div></div>
-
-- [Configuring JWT in NestJS](./jwt.md)
-- [Hash Provider using Bcrypt](./hash-bcrypt.md)
-
-<div></div>
-
-- [Sign Up / Sign In Providers](./sign-up.md)
 - [Generating a JWT Token](./generate-jwt.md)
 
 ### Guards
@@ -79,7 +80,3 @@
 
 - [Guard based on Custom Decorator](./guard-decorator.md)
 - [ActiveUserDecorator](./user-decorator.md)
-
-### Refresh Tokens
-
-- [Refresh Tokens](./refresh-tokens.md)
