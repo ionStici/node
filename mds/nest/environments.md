@@ -1,27 +1,18 @@
 # Managing Environments in NestJS with ConfigModule
 
-## Table of Contents
-
-- [Why ConfigModule](#why-configmodule)
-- [Installing ConfigModule](#installing-configmodule)
-- [Set Up ConfigModule](#set-up-configmodule)
-- [Access Environment Variables](#access-environment-variables)
-- [Conditionally Load Environments](#conditionally-load-environments)
-- [Inject Database Credentials](#inject-database-credentials)
-
 ## Why Config Module
 
 - **Environment Separation:** Different settings for development, testing, and production.
-- **Security:** Keep sensitive information like database credentials out of your codebase.
+- **Security:** Keep sensitive information like database credentials out of the codebase.
 - **Maintainability:** Change configurations without altering the source code.
 
-## Installing ConfigModule
+## Install ConfigModule
 
 ```bash
 npm i @nestjs/config
 ```
 
-## Set Up ConfigModule
+## Set Up Config Module
 
 ```ts
 // app.module.ts
@@ -42,23 +33,26 @@ export class AppModule {}
 
 ### Create Environment Variables File
 
-Create a `.env` file at the root of the project.
+Create an `.env` file at the root of the project.
 
 ```makefile
 # .env
 DATABASE_PASSWORD='supersecret'
 ```
 
+This file is for **environment variables**, which are a way to store and manage configuration settings and sensitive information outside of the codebase.
+
 ## Access Environment Variables
 
 ```ts
 // app.service.ts
 import { ConfigService } from "@nestjs/config";
+
 @Injectable()
 export class AppService {
   constructor(private readonly configService: ConfigService) {}
 
-  test() {
+  retrieveDatabasePassword() {
     return this.configService.get("DATABASE_PASSWORD", "default_value"); // 'supersecret'
   }
 }
@@ -100,15 +94,15 @@ const ENV = process.env.NODE_ENV;
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      // envFilePath: [".env.development"], // manually
-      envFilePath: !ENV ? ".env" : `.env.${ENV}`, // conditionally
+      // envFilePath: ['.env.development'], // manually
+      envFilePath: ENV ? `.env.${ENV}` : ".env", // conditionally
     }),
   ],
 })
 export class AppModule {}
 ```
 
-- If `NODE_ENV` is not set, defaults to `.env`.
+- If `NODE_ENV` is not set, defaults to `.env`
 - If `NODE_ENV` is set (e.g. `development`), loads `.env.development`.
 
 ## Inject Database Credentials
@@ -121,28 +115,30 @@ DATABASE_PORT=5432
 DATABASE_HOST=localhost
 DATABASE_USER=postgres
 DATABASE_PASSWORD=12345
-DATABASE_NAME="nestjs-blog"
+DATABASE_NAME="nest-blog"
 ```
 
-### Update AppModule to Use ConfigService with TypeORM
+### Configure AppModule to Use ConfigService with TypeORM
 
 ```ts
 // app.module.ts
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConfigModule, ConfigService } from "@nestjs/config";
+
 const ENV = process.env.NODE_ENV;
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: !ENV ? ".env" : `.env.${ENV}`,
+      envFilePath: ENV ? `.env.${ENV}` : ".env",
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
+        type: "postgres",
         type: "postgres",
         autoLoadEntities: true,
         synchronize: true,
@@ -159,5 +155,5 @@ export class AppModule {}
 ```
 
 - **`TypeOrmModule.forRootAsync`** : Asynchronously configure TypeORM with environment variables.
-- **Imports and Inject**: Import `ConfigModule` and inject `ConfigService`.
-- **`useFactory` Function** : Access environment variables via `configService`.
+- **`imports` & `inject`** : Import `ConfigModule` and inject `ConfigService`.
+- **`useFactory` function** : Access environment variables via `configService`.

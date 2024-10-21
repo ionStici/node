@@ -1,21 +1,8 @@
 # Custom Configuration
 
-Use custom configuration files in NestJS to handle environment variables, which allows you better organization and control over application settings.
+Handle environment variables using custom **configuration files** for better organization and control over app settings.
 
-## Table of Contents
-
-- [Custom Configuration Files](#custom-configuration-files)
-  - [Creating a Configuration File](#creating-a-configuration-file)
-  - [Integrating the Config Module in the App](#integrating-the-config-module-in-the-app)
-- [Config Files With Namespaces](#config-files-with-namespaces)
-  - [Creating Namespaced Config Files](#creating-namespaced-config-files)
-  - [Loading Configurations in App Module](#loading-configurations-in-app-module)
-
-## Custom Configuration Files
-
-Configuration files allow the extraction of environment variables and setting default values, making them more flexible and maintainable.
-
-### Creating a Configuration File
+## Creating a Configuration File
 
 ```ts
 // src/config/app.config.ts
@@ -28,14 +15,14 @@ export const appConfig = () => ({
     password: process.env.DATABASE_PASSWORD,
     name: process.env.DATABASE_NAME,
     synchronize: process.env.DATABASE_SYNC === "true" ? true : false,
-    autoLoadEntities: process.env.DATABASE_AUTOLOAD === "true" ? true : false,
+    autoLoadEntities: process.env.DATABASE_AUTO_LOAD === "true" ? true : false,
   },
 });
 ```
 
 `appConfig` is a factory function which returns an object containing the configuration settings.
 
-### Integrating the Config Module in the App
+### Integrating a Configuration File
 
 ```ts
 // app.module.ts
@@ -47,12 +34,13 @@ import { appConfig } from "./config/app.config";
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: !ENV ? ".env" : `.env.${ENV}`,
-      load: [appConfig],
+      load: [appConfig], // load config file
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
+        // retrieve config settings from config file
         type: "postgres",
         autoLoadEntities: configService.get("database.autoLoadEntities"),
         synchronize: configService.get("database.synchronize"),
@@ -68,18 +56,14 @@ import { appConfig } from "./config/app.config";
 export class AppModule {}
 ```
 
-- **ConfigModule:** loads the custom configurations - `load: [appConfig]` - and makes it globally accessible across the application.
-- **TypeOrmModule:** Dynamically configures TypeORM using `ConfigService`, pulling values from our configuration file rather than directly from `process.env`.
+- `ConfigModule` loads the custom configurations `load: [appConfig]` and makes it globally accessible across the application.
+- `TypeOrmModule` uses configuration settings from the configuration file rather than directly from `process.env`.
 
-## Config Files With Namespaces
-
-Organize configuration files using namespaces in NestJS by splitting large configuration files into more manageable modules.
+## Split Config Files using Namespaces
 
 ### Creating Namespaced Config Files
 
-The `registerAs` function from `@nestjs/config` package is used to create named namespaces for each configuration.
-
-`appConfig` _namespace:_
+The `registerAs` function from `@nestjs/config` package is used to create namespaces.
 
 ```ts
 // src/config/app.config.ts
@@ -90,7 +74,7 @@ export default registerAs("appConfig", () => ({
 }));
 ```
 
-`database` _namespace containing database-related environment variables:_
+`database` namespace containing database-related environment variables:
 
 ```ts
 // src/config/database.config.ts
@@ -103,11 +87,11 @@ export default registerAs("database", () => ({
   password: process.env.DATABASE_PASSWORD,
   name: process.env.DATABASE_NAME,
   synchronize: process.env.DATABASE_SYNC === "true" ? true : false,
-  autoLoadEntities: process.env.DATABASE_AUTOLOAD === "true" ? true : false,
+  autoLoadEntities: process.env.DATABASE_AUTO_LOAD === "true" ? true : false,
 }));
 ```
 
-### Loading Configurations in App Module
+### Integrating Named Config Files
 
 The `load` array allows us to register multiple configuration files:
 
@@ -145,5 +129,5 @@ const ENV = process.env.NODE_ENV;
 export class AppModule {}
 ```
 
-- **Namespaces:** By using the `ConfigService`, we access values under namespaces (`appConfig` and `database`), such as `database.host`, `database.port`, etc.
+- **Namespaces:** By using the `ConfigService` provider, we can access values under namespaces (`appConfig` and `databaseConfig`), such as `database.host`, `database.port`, etc.
 - **TypeORM Configuration:** The `TypeOrmModule` is dynamically configured using values from the `database` namespace, ensuring separation of configuration concerns.

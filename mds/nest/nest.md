@@ -31,10 +31,6 @@
 
 - [TypeORM with PostgreSQL in NestJS](./../typeorm/typeorm.md)
 
-### Practical
-
-- [Reusable Pagination Module](./pagination.md)
-
 ### Exception Handling
 
 - [Exceptions](./exceptions.md)
@@ -52,26 +48,25 @@
 
 ### Authentication
 
+<!--
+- [Introduction to Authentication](./auth-intro.md)
+- [JWT Web Tokens Introduction](./jwt-intro.md)
+- [Generating a JWT Token](./generate-jwt.md) -->
+
 <div></div>
 
 - [Configuring JWT in NestJS](./jwt-config.md)
 - [Hash Provider using Bcrypt](./hash-bcrypt.md)
 - [Generate / Refresh Tokens](./jwt-generate-refresh.md)
 
-<div></div>
+<!-- - [Google Authentication](./google-auth.md) -->
 
-### Authentication
-
-- [Introduction to Authentication](./auth-intro.md)
-- [JWT Web Tokens Introduction](./jwt-intro.md)
-- [Generating a JWT Token](./generate-jwt.md)
-
-### Guards
+<!-- ### Guards
 
 - [Introduction to Guards in NestJS](./guards-introduction.md)
-- [Implementing and Using Guards](./guards.md)
+- [Implementing and Using Guards](./guards.md) -->
 
-### Decorators
+<!-- ### Decorators
 
 - [Introduction to Decorators](./decorators-intro.md)
 - [Creating Custom Decorators](./creating-decorator.md)
@@ -79,4 +74,16 @@
 <div></div>
 
 - [Guard based on Custom Decorator](./guard-decorator.md)
-- [ActiveUserDecorator](./user-decorator.md)
+- [ActiveUserDecorator](./user-decorator.md) -->
+
+<!-- ### Interceptors
+
+- [Interceptors](./interceptors.md) -->
+
+### Practical
+
+- [Reusable Pagination Module](./pagination.md)
+
+- [S3 Bucket File Uploads](./aws-s3-bucket.md)
+
+- [Notification Emails](./smtp.md)

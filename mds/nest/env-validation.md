@@ -38,7 +38,9 @@ export default Joi.object({
 `{ validationSchema: environmentValidation }` applies the validation schema.
 
 ```ts
+// app.module.ts
 import environmentValidation from "./config/environment.validation";
+
 @Module({
   imports: [
     ConfigModule.forRoot({

@@ -1,24 +1,5 @@
 # Introduction to Authentication
 
-## Table of Contents
-
-- [Password-Based Authentication](#password-based-authentication)
-- [Key Steps in the Authentication Process](#key-steps-in-the-authentication-process)
-  - [1. Hashing and Salting Passwords](#1-hashing-and-salting-passwords)
-  - [2. Authenticating the User](#2-authenticating-the-user)
-  - [3. Issuing a JWT (JSON Web Token)](#3-issuing-a-jwt-json-web-token)
-  - [4. Verifying JWT on Future Requests](#4-verifying-jwt-on-future-requests)
-- [Key Components of JWT-Based Authentication](#key-components-of-jwt-based-authentication)
-- [Hashing and Salting Passwords in NestJS with Bcrypt](#hashing-and-salting-passwords-in-nestjs-with-bcrypt)
-  - [Why Hashing and Salting are Needed](#why-hashing-and-salting-are-needed)
-  - [What is hashing](#what-is-hashing)
-  - [How Does Hashing Work in Authentication](#how-does-hashing-work-in-authentication)
-  - [What is Salting](#what-is-salting)
-  - [Example of a Bcrypt-Generated Hash](#example-of-a-bcrypt-generated-hash)
-  - [Why Use Bcrypt](#why-use-bcrypt)
-  - [How Bcrypt Works](#how-bcrypt-works)
-  - [Key Benefits](#key-benefits)
-
 ## Password-Based Authentication
 
 - In password-based authentication, a user provides an **email** and **password** to sign up or log in.

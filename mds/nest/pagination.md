@@ -96,24 +96,18 @@ export class PaginationService {
       take: paginationQuery.limit,
     });
 
-    const baseURL =
-      this.request.protocol + "://" + this.request.headers.host + "/";
+    const baseURL = this.request.protocol + "://" + this.request.headers.host + "/";
     const newUrl = new URL(this.request.url, baseURL);
 
-    const baseURL =
-      this.request.protocol + "://" + this.request.headers.host + "/"; // http://localhost:3000/
+    const baseURL = this.request.protocol + "://" + this.request.headers.host + "/"; // http://localhost:3000/
     const newUrl = new URL(this.request.url, baseURL);
 
     const totalItems = await repository.count();
     const totalPages = Math.ceil(totalItems / paginationQuery.limit);
     const nextPage =
-      paginationQuery.page === totalPages
-        ? paginationQuery.page
-        : paginationQuery.page + 1;
+      paginationQuery.page === totalPages ? paginationQuery.page : paginationQuery.page + 1;
     const previousPage =
-      paginationQuery.page === 1
-        ? paginationQuery.page
-        : paginationQuery.page - 1;
+      paginationQuery.page === 1 ? paginationQuery.page : paginationQuery.page - 1;
 
     const finalResponse: Paginated<T> = {
       data: results,
@@ -159,10 +153,7 @@ export class GetPostsBaseDto {
   endDate?: Date;
 }
 
-export class GetPostsDto extends IntersectionType(
-  GetPostsBaseDto,
-  PaginationQueryDto
-) {}
+export class GetPostsDto extends IntersectionType(GetPostsBaseDto, PaginationQueryDto) {}
 ```
 
 `GetPostsBaseDto` defines additional query parameters for filtering posts by date, then `GetPostsDto` combines the DTOs in a single DTO using `IntersectionType`.
