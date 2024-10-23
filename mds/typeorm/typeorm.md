@@ -14,6 +14,11 @@
 
 - [Implementing Transactions](./create-transaction.md)
 
+<div></div>
+
+- [Migrations Overview](./migrations-overview.md)
+- [Set up and Use Migrations](./migrations.md)
+
 ### Relationships
 
 - [Types of Relationships](./relationships.md)

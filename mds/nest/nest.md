@@ -62,7 +62,7 @@
 <div></div>
 
 - [Generate / Refresh Tokens](./jwt-generate-refresh.md)
-- [Google Authentication](./google-auth.md)
+<!-- - [Google Authentication](./google-auth.md) -->
 
 <!--
 ### Guards
@@ -92,9 +92,10 @@
 ### Practical
 
 - [Reusable Pagination Module](./pagination.md)
-- [S3 Bucket File Uploads](./aws-s3-bucket.md)
+<!-- - [S3 Bucket File Uploads](./aws-s3-bucket.md) -->
 
 <div></div>
 
-- [Notification Emails](./smtp.md)
+<!-- - [Notification Emails](./smtp.md) -->
+
 - [AWS EC2 Deployment](./deploy.md)
