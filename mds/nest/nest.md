@@ -51,22 +51,28 @@
 <!--
 - [Introduction to Authentication](./auth-intro.md)
 - [JWT Web Tokens Introduction](./jwt-intro.md)
-- [Generating a JWT Token](./generate-jwt.md) -->
+- [Generating a JWT Token](./generate-jwt.md)
+-->
 
 <div></div>
 
 - [Configuring JWT in NestJS](./jwt-config.md)
 - [Hash Provider using Bcrypt](./hash-bcrypt.md)
+
+<div></div>
+
 - [Generate / Refresh Tokens](./jwt-generate-refresh.md)
+- [Google Authentication](./google-auth.md)
 
-<!-- - [Google Authentication](./google-auth.md) -->
-
-<!-- ### Guards
+<!--
+### Guards
 
 - [Introduction to Guards in NestJS](./guards-introduction.md)
-- [Implementing and Using Guards](./guards.md) -->
+- [Implementing and Using Guards](./guards.md)
+-->
 
-<!-- ### Decorators
+<!--
+### Decorators
 
 - [Introduction to Decorators](./decorators-intro.md)
 - [Creating Custom Decorators](./creating-decorator.md)
@@ -74,16 +80,21 @@
 <div></div>
 
 - [Guard based on Custom Decorator](./guard-decorator.md)
-- [ActiveUserDecorator](./user-decorator.md) -->
+- [ActiveUserDecorator](./user-decorator.md)
+-->
 
-<!-- ### Interceptors
+<!--
+### Interceptors
 
-- [Interceptors](./interceptors.md) -->
+- [Interceptors](./interceptors.md)
+-->
 
 ### Practical
 
 - [Reusable Pagination Module](./pagination.md)
-
 - [S3 Bucket File Uploads](./aws-s3-bucket.md)
 
+<div></div>
+
 - [Notification Emails](./smtp.md)
+- [AWS EC2 Deployment](./deploy.md)

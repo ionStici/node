@@ -1,5 +1,21 @@
 # File Uploads using AWS S3 Bucket & Cloudfront
 
+## Setup S3 and Cloudfront
+
+**S3** -> Make sure the region is the intended one -> Create bucket (make it public) -> Go to newly created bucket -> Permissions -> Bucket policy -> Edit -> Policy generator -> Fill out the form as follows: S3 Bucket Policy + Allow + Principal: `*` + Actions: `GetObject` + ARN: `<bucket-arn>/*` -> Add Statement and Generate Policy -> Copy the generated code and paste it in the Bucket policy box then Save changes
+
+**IAM** -> Users -> Create user -> Attach policies directly: AmazonS3FullAccess + IAMUserSSHKeys + IAMFullAccess -> Next and Create user -> Go to user page and click "Create access key" -> Choose "Local code" then click Next -> Copy the "Access Key" and "Secret access key"
+
+**CloudFront**
+
+```makefile
+AWS_PUBLIC_BUCKET_NAME='nest-blog-images-test'
+AWS_REGION='eu-central-1'
+AWS_CLOUDFRONT_URL='https://d2lev2ck6d9o77.cloudfront.net'
+AWS_ACCESS_KEY_ID='AKIA3M7AC4HIRB2X6DCL'
+AWS_SECRET_ACCESS_KEY='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'
+```
+
 ## Initial Configuration
 
 ```bash
@@ -274,7 +290,6 @@ export class UploadToAwsProvider {
     const extension = path.extname(file.originalname);
 
     // Generate time stamp
-
     const timestamp = new Date().getTime().toString().trim();
 
     // Return file uuid
