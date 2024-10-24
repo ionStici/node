@@ -48,11 +48,7 @@
 
 ### Authentication
 
-<!--
-- [Introduction to Authentication](./auth-intro.md)
-- [JWT Web Tokens Introduction](./jwt-intro.md)
-- [Generating a JWT Token](./generate-jwt.md)
--->
+- [Introduction to Authentication](./auth-introduction.md)
 
 <div></div>
 
@@ -62,7 +58,7 @@
 <div></div>
 
 - [Generate / Refresh Tokens](./jwt-generate-refresh.md)
-<!-- - [Google Authentication](./google-auth.md) -->
+- [Google Authentication](./google-auth.md)
 
 <!--
 ### Guards
@@ -92,10 +88,11 @@
 ### Practical
 
 - [Reusable Pagination Module](./pagination.md)
-<!-- - [S3 Bucket File Uploads](./aws-s3-bucket.md) -->
+
+<!-- - [Notification Emails](./smtp.md) -->
 
 <div></div>
 
-<!-- - [Notification Emails](./smtp.md) -->
+<!-- - [S3 Bucket File Uploads](./aws-s3-bucket.md) -->
 
 - [AWS EC2 Deployment](./deploy.md)
