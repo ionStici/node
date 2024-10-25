@@ -1,5 +1,23 @@
 # Implementing the Authentication Guard in NestJS
 
+## Custom Decorator
+
+Custom Decorator for determining if a route needs authorization or is public.
+
+```ts
+// auth/decorators/auth.decorator.ts
+import { SetMetadata } from "@nestjs/common";
+
+export enum AuthType {
+  Bearer,
+  None,
+}
+
+export const AUTH_TYPE_KEY = "authType";
+
+export const Auth = (...authTypes: AuthType[]) => SetMetadata(AUTH_TYPE_KEY, authTypes);
+```
+
 ## AuthenticationGuard
 
 ```ts

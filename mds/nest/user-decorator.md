@@ -1,29 +1,27 @@
-# ActiveUserDecorator
+# Custom Parameter Decorator
 
-This code retrieves user data from the request object using the JWT payload, eliminating the need to query the database on each request. Here's what happens:
+Custom parameter decorator that extracts the authenticated user's data directly from the request object. This approach avoids the need to query the database for user information on each request, as the data is already available from the decoded JWT payload.
+
+## Creating the `@ActiveUser` Decorator
 
 ```ts
 // auth/decorators/active-user.decorator.ts
 import { createParamDecorator, ExecutionContext } from "@nestjs/common";
 import { REQUEST_USER_KEY } from "../constants/auth.constants";
 
-export interface ActiveUserData {
-  // ID of the user
-  sub: number;
-  email: string;
-}
+export const ActiveUser = createParamDecorator((field: any, context: ExecutionContext) => {
+  const request = context.switchToHttp().getRequest(); // HTTP Request Object
 
-export const ActiveUser = createParamDecorator(
-  (field: keyof ActiveUserData | undefined, ctx: ExecutionContext) => {
-    const request = ctx.switchToHttp().getRequest();
-    const user: ActiveUserData = request[REQUEST_USER_KEY];
+  // User data attached to the request, during authentication in a guard or middleware.
+  const user = request[REQUEST_USER_KEY];
 
-    return field ? user?.[field] : user;
-  }
-);
+  return field ? user?.[field] : user;
+});
 ```
 
 The `ActiveUser` decorator uses `createParamDecorator` to extract the user data (ID, email) stored in the request object, which was decoded from the JWT during authentication.
+
+## Using the `@ActiveUser` Decorator in a Controller
 
 ```ts
 import { ActiveUser } from "src/auth/decorators/active-user.decorator";
@@ -32,7 +30,7 @@ import { ActiveUserData } from "src/auth/decorators/active-user.decorator";
 @Controller("posts")
 export class PostsController {
   createPost(@Body() createPostDto: CreatePostDto, @ActiveUser() user: ActiveUserData) {
-    // `user` is extracted from the JWT payload, and so there is no need to query it from database
+    // `user` contains the authenticated user's data from the JWT payload
   }
 }
 ```

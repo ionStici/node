@@ -1,6 +1,6 @@
 # TypeORM
 
-### Fundamentals
+### TypeORM Fundamentals
 
 - [Configure TypeORM with PostgreSQL in NestJS](./typeorm-config.md)
 - [Creating and Configuring Database Entities](./entity.md)
@@ -19,7 +19,7 @@
 - [Migrations Overview](./migrations-overview.md)
 - [Set up and Use Migrations](./migrations.md)
 
-### Relationships
+### TypeORM Relationships
 
 - [Types of Relationships](./relationships.md)
 - [Relationship Options](./relationship-options.md)

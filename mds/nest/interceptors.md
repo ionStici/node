@@ -1,6 +1,4 @@
-# Interceptors
-
-## Introduction Interceptors and Serialization
+# Interceptors and Serialization
 
 ## Serializing User Entity
 

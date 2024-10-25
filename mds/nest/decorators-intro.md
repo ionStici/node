@@ -1,83 +1,120 @@
 # Introduction to Decorators in NestJS
 
-## 1. What are Decorators
+## What are Decorators
 
-Decorators in NestJS are **TypeScript decorators** that add **metadata** to classes, methods, or method parameters. This metadata provides information that NestJS can use to react or behave in a specific way.
+Decorators are special functions in TypeScript that let you add extra features or information to classes, methods, or parameters. In NestJS, decorators are used to tell the framework how to handle your code.
 
-- `@Controller` is a **class decorator** that defines a class as a controller.
-- `@Post` is a **method decorator** that marks a method as a route handler for `POST` requests.
-- `@Body` is a **parameter decorator** that extracts the body from the incoming request.
+They are annotations that start with an `@` symbol and are placed right above the code they affect.
 
-## 2. Purpose of Metadata
+### Types of Decorators
 
-The main purpose of decorators is to **set metadata**. Metadata provides additional information about a class, method, or parameter that can be sued within the application's **execution context**. This allows NestJS to identify different routes, methods, and behaviors in your application.
+- **Class Decorators:** Applies to classes. `@Controller()` marks a class as a controller that can handle incoming requests.
+- **Method Decorators:** Applied to methods inside classes. `@Get()` marks a method to handle HTTP GET requests.
+- **Parameter Decorators:** Applied to parameters within methods. `@Body()` extracts data from the body of an HTTP request.
 
-For example, when you use:
+### Simple Example
 
 ```ts
-@Post("create-many-users")
+import { Controller, Post, Body } from "@nestjs/common";
+
+@Controller("users") // <- Class decorator
+export class UsersController {
+  @Post() // <- Method decorator
+  create(
+    @Body() userData // <- Parameter decorator
+  ) {}
+}
 ```
 
-The `"create-many-users"` string becomes metadata, which allows NestJS to map HTTP requests to the correct route.
+- `@Controller('users')` tells NestJS that this class handles routes starting with `/users`.
+- `@Post()` specify the HTTP methods for the routes.
+- `@Body()` tells NestJS to pass the request body to the `userData` parameter.
 
-## 3. Using `@SetMetadata`
+## Using `@SetMetadata`
 
-NestJS provides the `@SetMetadata` decorator, which allows you to set custom metadata. This can be useful when you need to define additional data or flags that other parts of your application (such as guards or interceptors) can use.
+NestJS provides the `@SetMetadata` decorators for adding custom metadata. This metadata then can be used by other components such as guards, interceptors, or middlewares.
 
-For instance, you can mark routes as public using:
+Suppose you have routes that don't require authentication. You can set a custom metadata key `isPublic` to `true` using `@SetMetadata`:
 
 ```ts
+import { SetMetadata } from '@nestjs/common';
+
 @SetMetadata('isPublic', true)
+public getItem () {}
 ```
 
-This metadata can be checked in a guard to allow unauthenticated access to public routes.
+Now, you can check this `isPublic` metadata in a guard to skip authentication for this route.
 
-## 4. The `Reflector` Class
+## Creating Custom Decorators
 
-NestJS provides a **Reflector** class that allows you to access this metadata in other parts of the application, such as **guards, interceptors, pipes,** or **middlewares**. Using this class, you can extract metadata set by decorators and use it in decision-making processes (e.g. whether to allows access to a route).
+Create a `@Public` decorators to mark routes that don't require authentication:
 
-## 5. Creating Custom Decorators
-
-In addition to using the built-in decorators, NestJS allows you to create **custom decorators**. These can be used to simplify common tasks and improve code readability. For example, instead of manually using `@SetMetadata` for each public route, you can create a custom `@Public` decorators to mark routes that don't required authentication.
-
-### Example: Making Routes as Public
-
-Create a custom `@Public` decorator to mark routes that don't require authentication.
+```bash
+npx nest g d /decorators/public.decorator --flat --no-spec
+```
 
 ```ts
+// decorators/public.decorators.ts
 import { SetMetadata } from "@nestjs/common";
 
-export const IS_PUBLIC_KEY = "isPublic";
+const IS_PUBLIC_KEY = "isPublic";
 
 export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);
 ```
 
-## 6. Using Metadata in a Guard
+- `IS_PUBLIC_KEY` is the key for the metadata.
+- `Public` is the custom decorator function.
 
-Once we've marked a route as public using `@Public`, we can access this metadata inside a guard. We can use the **Reflector** class to retrieve the metadata and decide whether or not ot allow the request to proceed.
+### Use the Custom Decorator
+
+Mark routes that don't require authentication with the `@Public` decorator:
 
 ```ts
-import { CanActivate, ExecutionContext, Injectable, Reflector } from "@nestjs/common";
-import { Observable } from "rxjs";
-import { IS_PUBLIC_KEY } from "../decorators/public.decorator";
+import { Public } from "decorators/public.decorator";
+
+@Public()
+@Controller()
+export class ArticlesController {
+  // this routes is public
+}
+```
+
+## Accessing Metadata with the `Reflector` Class
+
+NestJS provides a `Reflector` class that allows you to access this metadata in other parts of the application, such as **guards, interceptors, pipes,** or **middlewares**. Using this class, you can extract metadata set by decorators and use it in decision-making processes (e.g. whether to allows access to a route).
+
+### Checking for Public Routes in a Guard
+
+The guard will check the request, if the route is marked with `@Public`, it will allow it, otherwise it will enforce authentication.
+
+```ts
+import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
+import { Reflector } from "@nestjs/core";
 
 @Injectable()
-export class AccessTokenGuard implements CanActivate {
-  constructor(private readonly reflector: Reflector) {}
+export class AuthGuard implements CanActivate {
+  constructor(private reflector: Reflector) {}
 
-  canActivate(context: ExecutionContext): Boolean | Promise<boolean> | Observable<boolean> {
-    const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
-      context.getHandler(),
-      context.getClass(),
-    ]);
+  canActivate(context: ExecutionContext): boolean {
+    const isPublic = this.reflector.get("isPublic", context.getHandler());
 
-    if (isPublic) {
-      return true;
-    }
+    if (isPublic) return true; // Allow access to public routes
 
-    // logic to check jwt token if the route is not public
-
-    return false;
+    // Add your authentication logic here
+    return false; // Block access if not authenticated
   }
 }
 ```
+
+- `reflector.get()` retrieves the metadata.
+- `context.getHandler()` gets the method being called.
+
+## Summary
+
+- Decorators are functions that add extra features to your code in NestJS.
+- They help NestJS understand how to handle different parts of your application.
+- You can **set custom metadata** using `@SetMetadata`.
+- **Custom decorators** like `@Public()` make your code cleaner and easier to read.
+- The `Reflector` **class** lets you access metadata in guards and other places, so you can make decisions based on it.
+
+By using decorators, you can write NestJS applications that are organized and easy to maintain.
