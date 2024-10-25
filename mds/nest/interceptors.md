@@ -1,6 +1,12 @@
-# Interceptors and Serialization
+# Interceptors and Serialization in NestJS
 
-## Serializing User Entity
+NestJS interceptors are a powerful feature that allows you to **intercept and manipulate incoming requests and outgoing responses**. They can be used for various purposes such as logging, transforming responses, handling errors, and more.
+
+**Serialization**, on the other hand, is the process of transforming complex data types (like entities) into plain JavaScript objects that can be easily sent over the network. In NestJS, serialization often involves controlling which properties of an entity are exposed to the client.
+
+## Serializing the User Entity
+
+Serialization ensures that sensitive information (like passwords) is not sent to the client.
 
 ```ts
 // users/users.controller.ts
@@ -14,6 +20,8 @@ export class UsersController {
   }
 }
 ```
+
+`@UseInterceptors(ClassSerializerInterceptor)` : This ensures that the response of the `createUser` method is serialized according to the rules defined in the entity class, before being sent to the client.
 
 ```ts
 // users/user.entity.ts
@@ -29,7 +37,11 @@ export class User {
 }
 ```
 
-## Global Data Interceptor
+`@Exclude` : This decorator from `class-transformer` marks the `password` property to be excluded from the serialized output. As a result, when a `User` entity is returned in a response, the `password` field will not be included, enhancing security.
+
+## Creating a Global Data Response Interceptor
+
+Interceptors can also be applied globally, affecting all controllers and routes within your application.
 
 ```bash
 npx nest g interceptor /common/interceptors/data-response --no-spec
@@ -43,12 +55,14 @@ import { Observable, tap } from "rxjs";
 @Injectable()
 export class DataResponseInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    console.log("before ...");
+    console.log("Hello");
 
-    return next.handle().pipe(tap((data) => console.log("after ... ", data)));
+    return next.handle().pipe(tap((data) => console.log("Bye", data)));
   }
 }
 ```
+
+The `DataResponseInterceptor` interceptor will log `Hello` before the request is handled, and then will log `Bye` after the response is sent.
 
 ```ts
 // main.ts
@@ -66,6 +80,8 @@ async function bootstrap() {
 }
 bootstrap();
 ```
+
+To apply an interceptor globally, you have to register it in the `main.ts` file.
 
 ## Adding API Versions
 
@@ -109,3 +125,5 @@ const ENV = process.env.NODE_ENV;
 })
 export class AppModule {}
 ```
+
+Instead of registering the interceptor globally in `main.ts`, you can register it in the `AppModule` using the `APP_INTERCEPTOR` token. This approach integrates better with NestJS's dependency injection system, especially when the interceptor has dependencies like `ConfigService`.
