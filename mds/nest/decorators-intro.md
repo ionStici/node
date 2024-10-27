@@ -96,7 +96,10 @@ export class AuthGuard implements CanActivate {
   constructor(private reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean {
-    const isPublic = this.reflector.get("isPublic", context.getHandler());
+    const isPublic = this.reflector.getAllAndOverride("isPublic", [
+      context.getHandler(),
+      context.getClass(),
+    ]);
 
     if (isPublic) return true; // Allow access to public routes
 

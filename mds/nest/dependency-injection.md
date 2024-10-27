@@ -16,7 +16,7 @@
 
 - **Dependency Injection (DI)** in NestJS is a technique used to implement **Inversion of Control (IoC)** for resolving dependencies.
 
-- **Inversion of Control (IoC):** The responsibility of creating and managing dependencies is delegated to NestJS.
+- **Inversion of Control (IoC):** The responsibility of creating and managing dependencies is delegated to the system (NestJS).
 
 - NestJS manages a **dependency graph** and knows the correct order in which to instantiate classes.
 
@@ -56,7 +56,7 @@ import { SignInProvider } from "./sign-in.provider";
 
 @Injectable()
 export class UsersService {
-  // Inject a provider to make its method available for use
+  // Inject a provider to make its methods available for use
   constructor(private readonly signInProvider: SignInProvider) {}
 
   public signIn() {

@@ -138,7 +138,7 @@ export class AppController {
 }
 ```
 
-- `@Controller()` : Marks the class as a controller. In handles incoming requests, in this case at the root path (`/`).
+- `@Controller()` : Marks the class as a controller. It handles incoming requests, in this case at the root path (`/`).
 
 - `@Get()` : Maps the `getHello()` method to handle GET http requests.
 

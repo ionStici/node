@@ -2,7 +2,7 @@
 
 ## Install NestJS JWT Package
 
-```ts
+```bash
 npm i @nestjs/jwt
 ```
 
